@@ -1,27 +1,17 @@
-/**
- * shio - Tide Table Application
- * Uses parsed 2026 JMA Tide Data
- */
-
-// Stations with JMA data
-const LOCATIONS = [
-    { name: "東京 (Tokyo)", code: "TK" },
-    { name: "大阪 (Osaka)", code: "OS" },
-    { name: "名古屋 (Nagoya)", code: "NG" },
-    { name: "釧路 (Kushiro)", code: "QS" }
-];
 
 // State
 let currentState = {
-    location: LOCATIONS[0],
-    date: "2026-01-01", // Default to Jan 1st since we have 2026 data
+    location: { name: "東京", code: "TK" },
+    date: "2026-01-01", // Default date
     chart: null,
     loadedData: null,
-    lastLoadedCode: null
+    lastLoadedCode: null,
+    allStations: []
 };
 
 // DOM Elements
-const locationSelect = document.getElementById('location-select');
+const locationInput = document.getElementById('location-input');
+const locationList = document.getElementById('location-list');
 const datePicker = document.getElementById('date-picker');
 const highTideList = document.getElementById('high-tide-list');
 const lowTideList = document.getElementById('low-tide-list');
@@ -30,34 +20,49 @@ const ctx = document.getElementById('tideChart').getContext('2d');
 /**
  * Initialize Application
  */
-function init() {
-    // Populate Location Select
-    LOCATIONS.forEach((loc, index) => {
-        const option = document.createElement('option');
-        option.value = index;
-        option.textContent = loc.name;
-        locationSelect.appendChild(option);
-    });
+async function init() {
+    try {
+        // Load station list
+        const response = await fetch('data/stations.json');
+        if (!response.ok) throw new Error('Stations list not found');
+        currentState.allStations = await response.json();
 
-    // Set default date (2026)
-    datePicker.value = currentState.date;
-    // Limit date picker to 2026
-    datePicker.min = "2026-01-01";
-    datePicker.max = "2026-12-31";
+        // Populate datalist
+        locationList.innerHTML = currentState.allStations.map(st =>
+            `<option value="${st.name} (${st.code})"></option>`
+        ).join('');
 
-    // Event Listeners
-    locationSelect.addEventListener('change', (e) => {
-        currentState.location = LOCATIONS[e.target.value];
+        // Set default date (2026)
+        datePicker.value = currentState.date;
+        // Limit date picker to 2026
+        datePicker.min = "2026-01-01";
+        datePicker.max = "2026-12-31";
+
+        // Event Listeners
+        locationInput.addEventListener('change', handleLocationChange);
+
+        datePicker.addEventListener('change', (e) => {
+            currentState.date = e.target.value;
+            renderCurrentData();
+        });
+
+        // Initial Fetch
         fetchAndRender();
-    });
 
-    datePicker.addEventListener('change', (e) => {
-        currentState.date = e.target.value;
-        renderCurrentData();
-    });
+    } catch (error) {
+        console.error('Init error:', error);
+        // Fallback or show error if data/stations.json is not yet generated
+        showError('初期化に失敗しました。GitHub Actionsの完了をお待ちください。');
+    }
+}
 
-    // Initial Fetch
-    fetchAndRender();
+function handleLocationChange(e) {
+    const val = e.target.value;
+    const match = currentState.allStations.find(st => `${st.name} (${st.code})` === val);
+    if (match) {
+        currentState.location = match;
+        fetchAndRender();
+    }
 }
 
 /**

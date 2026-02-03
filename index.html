@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>shio - 日本の潮汐表</title>
     <meta name="description" content="日本の主要港の潮汐表（タイドグラフ）を表示するシンプルで美しいWebアプリです。">
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
 
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="app-container">
         <header class="app-header">
@@ -30,10 +34,11 @@
         <main>
             <section class="controls">
                 <div class="control-group">
-                    <label for="location-select">場所</label>
-                    <select id="location-select">
+                    <label for="location-input">場所</label>
+                    <input type="text" id="location-input" list="location-list" placeholder="場所を検索..." value="東京 (TK)">
+                    <datalist id="location-list">
                         <!-- Options will be populated by JS -->
-                    </select>
+                    </datalist>
                 </div>
                 <div class="control-group">
                     <label for="date-picker">日付</label>
@@ -45,7 +50,7 @@
                 <div class="chart-container">
                     <canvas id="tideChart"></canvas>
                 </div>
-                
+
                 <div class="tide-info">
                     <div class="info-card">
                         <h3>満潮 (High Tide)</h3>
@@ -70,4 +75,5 @@
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>

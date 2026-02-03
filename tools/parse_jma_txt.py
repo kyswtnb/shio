@@ -1,37 +1,38 @@
+
 import json
 import sys
 import os
 import re
 
 def parse_line(line):
-    # Standard line is ~80 chars plus a lot of data after column 80 (metadata)
-    # But let's focus on the first 80 columns.
+    # Standard format: hourly data in columns 1-72, metadata starts at index 72
     if len(line) < 80:
-        # If the line is short, it's missing leading spaces.
         line = line.rjust(80)
 
+    # Clean the line from any trailing garbage/newlines
+    line = line.rstrip('\r\n')
+    if len(line) < 80:
+        line = line.ljust(80)
+
     # Hourly data: columns 1-72 (24 values * 3 chars)
-    # In 0-indexed: line[0:72]
+    # JMA format: [HH1][HH2]...[HH24] 
+    # Each is 3 characters wide.
     hourly_raw = line[0:72]
     
-    # Metadata starts at column 73 (index 72)
+    # Metadata starts at column 73 (0-indexed 72)
     # Format: YY(73-74), MM(75-76), DD(77-78), Station(79-80)
-    # Note: browser fetch might have shifted these if internal spaces were collapsed.
-    # However, the station code and date are usually the 'anchor' at columns 73-80.
-    
     yy = line[72:74].strip()
     mm = line[74:76].strip()
     dd = line[76:78].strip()
     station = line[78:80].strip()
 
-    # Re-verify if this looks like a date. YY=26.
-    if yy != '26' or not mm.isdigit() or not dd.isdigit():
-        # Fallback: search for station code and work backwards
-        # Station codes we expect: TK, OS, NG, QS
-        match = re.search(r'(26)\s*(\d{1,2})\s*(\d{1,2})(TK|OS|NG|QS)', line)
+    # Re-verify if this looks like a date. Year 2026 is '26'.
+    if not (yy.isdigit() and mm.isdigit() and dd.isdigit()):
+        # Try a more flexible regex anchor if fixed width fails (e.g. if spaces were shifted)
+        # Look for the date/station pattern from the right
+        match = re.search(r'(\d{2})\s+(\d{1,2})\s+(\d{1,2})([A-Z0-9]{2})$', line)
         if match:
             yy, mm, dd, station = match.groups()
-            # Everything before match is hourly
             hourly_raw = line[:match.start()].rjust(72)
         else:
             return None
@@ -40,14 +41,13 @@ def parse_line(line):
     for i in range(0, 72, 3):
         chunk = hourly_raw[i:i+3].strip()
         if chunk == "":
-            # Handle cases where value might be missing but we expect 24
-            # Usually JMA uses 999 or similar if missing, but browser might have empty.
             hourly.append(None)
             continue
         try:
+            # JMA values are in cm
             hourly.append(int(chunk))
         except ValueError:
-            # Shifted data? try regex fallback for this chunk
+            # Handle smashed values or weird characters
             nums = re.findall(r'-?\d+', chunk)
             if nums:
                 hourly.append(int(nums[0]))
@@ -55,14 +55,51 @@ def parse_line(line):
                 hourly.append(None)
                 
     if len(hourly) == 24:
-        yy_full = 2000 + int(yy)
-        return {
-            "date": f"{yy_full}-{int(mm):02d}-{int(dd):02d}",
-            "station": station,
-            "hourly": hourly
-        }
+        # Check if we have at least some data
+        if all(x is None for x in hourly):
+            return None
+            
+        try:
+            yy_val = int(yy)
+            mm_val = int(mm)
+            dd_val = int(dd)
+            # Basic sanity check for year 26
+            if yy_val != 26: 
+                # If it's not 26, maybe it's 25 or something else, but we target 2026
+                # JMA files sometimes have a couple of days from prev/next months
+                pass
+            
+            return {
+                "date": f"20{yy_val:02d}-{mm_val:02d}-{dd_val:02d}",
+                "station": station,
+                "hourly": hourly
+            }
+        except ValueError:
+            return None
     
     return None
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Usage: python parse_jma_txt.py <input_file> [<output_file>]")
+        sys.exit(1)
+    
+    input_file = sys.argv[1]
+    output_file = sys.argv[2] if len(sys.argv) > 2 else input_file.replace('.txt', '.json')
+    
+    data = []
+    try:
+        with open(input_file, 'r', encoding='utf-8') as f:
+            for line in f:
+                parsed = parse_line(line)
+                if parsed:
+                    data.append(parsed)
+        
+        with open(output_file, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        print(f"Successfully parsed {len(data)} days to {output_file}")
+    except Exception as e:
+        print(f"Error: {e}")
 
 def main():
     if len(sys.argv) < 3:
