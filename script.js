@@ -281,7 +281,9 @@ function processAndRender(data) {
     updateTideLists(peaks);
 
     // 4. Update Tide Type (Moon Age)
-    updateTideType(dateStr);
+    if (typeof updateTideType === 'function') {
+        updateTideType(dateStr);
+    }
 }
 
 function changeDate(days) {
@@ -332,6 +334,7 @@ function updateTideType(dateStr) {
     else if (moonAge >= 24.0) type = "若潮"; // 24 to 29.5
     else type = "大潮"; // Loop back
 
+    if (!tideTypeSpan) return;
     tideTypeSpan.textContent = `${type} (月齢${moonAge.toFixed(1)})`;
 }
 
