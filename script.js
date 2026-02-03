@@ -18,6 +18,19 @@ const datePicker = document.getElementById('date-picker');
 const highTideList = document.getElementById('high-tide-list');
 const lowTideList = document.getElementById('low-tide-list');
 const ctx = document.getElementById('tideChart').getContext('2d');
+const prefSelect = document.getElementById('pref-select');
+
+// Geographical Order (North to South)
+const PREFECTURE_ORDER = [
+    "北海道", "青森", "岩手", "宮城", "秋田", "山形", "福島",
+    "茨城", "栃木", "群馬", "埼玉", "千葉", "東京", "神奈川",
+    "新潟", "富山", "石川", "福井", "山梨", "長野", "岐阜", "静岡", "愛知",
+    "三重", "滋賀", "京都", "大阪", "兵庫", "奈良", "和歌山",
+    "鳥取", "島根", "岡山", "広島", "山口",
+    "徳島", "香川", "愛媛", "高知",
+    "福岡", "佐賀", "長崎", "熊本", "大分", "宮崎", "鹿児島", "沖縄",
+    "その他"
+];
 
 /**
  * Initialize Application
@@ -29,18 +42,33 @@ async function init() {
         if (!response.ok) throw new Error('Stations list not found');
         currentState.allStations = await response.json();
 
-        // Populate datalist with Prefecture > Station Name format
-        console.log(`Loaded ${currentState.allStations.length} stations.`);
-        locationList.innerHTML = currentState.allStations.map(st => {
-            const pref = st.pref && st.pref !== "不明" ? `${st.pref} > ` : "";
-            return `<option value="${pref}${st.name} (${st.code})"></option>`;
-        }).join('');
+        // Extract unique prefectures and sort
+        const prefectures = [...new Set(currentState.allStations.map(st => st.pref || "その他"))];
+        prefectures.sort((a, b) => {
+            const indexA = PREFECTURE_ORDER.indexOf(a);
+            const indexB = PREFECTURE_ORDER.indexOf(b);
+            // Handle unknown prefs (put them at the end if not in list)
+            return (indexA === -1 ? 999 : indexA) - (indexB === -1 ? 999 : indexB);
+        });
+
+        // Populate prefecture dropdown
+        prefectures.forEach(pref => {
+            const option = document.createElement('option');
+            option.value = pref;
+            option.textContent = pref;
+            prefSelect.appendChild(option);
+        });
+
+        // Populate initial datalist (all stations)
+        updateStationList(currentState.allStations);
 
         // Ensure input shows current selection correctly with prefecture
         const initialMatch = currentState.allStations.find(st => st.code === currentState.location.code);
         if (initialMatch) {
             const pref = initialMatch.pref && initialMatch.pref !== "不明" ? `${initialMatch.pref} > ` : "";
             locationInput.value = `${pref}${initialMatch.name} (${initialMatch.code})`;
+            // Also select the prefecture in dropdown if available
+            if (initialMatch.pref) prefSelect.value = initialMatch.pref;
         } else {
             locationInput.value = `${currentState.location.name} (${currentState.location.code})`;
         }
@@ -55,6 +83,18 @@ async function init() {
         locationInput.addEventListener('focus', (e) => e.target.select());
         locationInput.addEventListener('change', handleLocationChange);
 
+        prefSelect.addEventListener('change', (e) => {
+            const selectedPref = e.target.value;
+            locationInput.value = ''; // Clear input to encourage new selection
+
+            if (selectedPref) {
+                const filtered = currentState.allStations.filter(st => st.pref === selectedPref);
+                updateStationList(filtered);
+            } else {
+                updateStationList(currentState.allStations);
+            }
+        });
+
         datePicker.addEventListener('change', (e) => {
             currentState.date = e.target.value;
             renderCurrentData();
@@ -68,6 +108,13 @@ async function init() {
         // Fallback or show error if data/stations.json is not yet generated
         showError('初期化に失敗しました。GitHub Actionsの完了をお待ちください。');
     }
+}
+
+function updateStationList(stations) {
+    locationList.innerHTML = stations.map(st => {
+        const pref = st.pref && st.pref !== "不明" ? `${st.pref} > ` : "";
+        return `<option value="${pref}${st.name} (${st.code})"></option>`;
+    }).join('');
 }
 
 function handleLocationChange(e) {

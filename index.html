@@ -35,7 +35,13 @@
             <section class="controls">
                 <div class="control-group">
                     <label for="location-input">場所</label>
-                    <input type="text" id="location-input" list="location-list" placeholder="場所を検索...">
+                    <div style="display: flex; gap: 10px;">
+                        <select id="pref-select" style="min-width: 120px;">
+                            <option value="">全ての都道府県</option>
+                        </select>
+                        <input type="text" id="location-input" list="location-list" placeholder="場所を検索..."
+                            style="flex-grow: 1;">
+                    </div>
                     <datalist id="location-list">
                         <!-- Options will be populated by JS -->
                     </datalist>
