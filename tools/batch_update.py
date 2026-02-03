@@ -26,18 +26,17 @@ def scrape_stations():
     if not html:
         return []
     
-    # Simple regex-based table extraction to avoid BeautifulSoup dependency
     stations = []
-    # Find all table rows: <tr>...</tr>
-    rows = re.findall(r'<tr>(.*?)</tr>', html, re.DOTALL)
+    # More robust regex for rows and cells (handles attributes like <tr class="...">)
+    rows = re.findall(r'<tr[^>]*>(.*?)</tr>', html, re.DOTALL)
     for row in rows:
-        # Find all cells: <td>...</td>
-        cells = re.findall(r'<td>(.*?)</td>', row, re.DOTALL)
+        cells = re.findall(r'<td[^>]*>(.*?)</td>', row, re.DOTALL)
         if len(cells) >= 3:
             # Strip tags and clean text
             code = re.sub(r'<[^>]+>', '', cells[1]).strip()
             name = re.sub(r'<[^>]+>', '', cells[2]).strip()
-            if code and name and len(code) == 2:
+            # JMA codes are 2 chars, e.g. "TK"
+            if code and name and len(code) == 2 and code.isupper():
                 stations.append({"code": code, "name": name})
     
     # Filter out header if it matches "地点記号"
@@ -108,3 +107,5 @@ if __name__ == "__main__":
         print("Batch processing complete.")
     else:
         print("No stations found. Check the regex or URL.")
+        import sys
+        sys.exit(1)
