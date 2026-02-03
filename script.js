@@ -12,8 +12,8 @@ let currentState = {
 };
 
 // DOM Elements
-const locationInput = document.getElementById('location-input');
-const locationList = document.getElementById('location-list');
+const stationSelect = document.getElementById('station-select');
+// locationList is removed
 const datePicker = document.getElementById('date-picker');
 const highTideList = document.getElementById('high-tide-list');
 const lowTideList = document.getElementById('low-tide-list');
@@ -68,15 +68,13 @@ async function init() {
 
         // Ensure input shows current selection correctly with prefecture
         if (currentState.location) {
-            const initialMatch = currentState.allStations.find(st => st.code === currentState.location.code);
-            if (initialMatch) {
-                const pref = initialMatch.pref && initialMatch.pref !== "不明" ? `${initialMatch.pref} > ` : "";
-                locationInput.value = `${pref}${initialMatch.name} (${initialMatch.code})`;
-                // Also select the prefecture in dropdown if available
-                if (initialMatch.pref) prefSelect.value = initialMatch.pref;
-            } else {
-                locationInput.value = `${currentState.location.name} (${currentState.location.code})`;
-            }
+            // Also select the prefecture in dropdown if available
+            if (currentState.location.pref) prefSelect.value = currentState.location.pref;
+
+            // Set station select value
+            stationSelect.value = currentState.location.code;
+        } else {
+            stationSelect.value = "";
         }
 
         // Set default date (2026)
@@ -86,12 +84,12 @@ async function init() {
         datePicker.max = "2026-12-31";
 
         // Event Listeners
-        locationInput.addEventListener('focus', (e) => e.target.select());
-        locationInput.addEventListener('change', handleLocationChange);
+        // locationInput select listener removed as it's a dropdown now
+        stationSelect.addEventListener('change', handleLocationChange);
 
         prefSelect.addEventListener('change', (e) => {
             const selectedPref = e.target.value;
-            locationInput.value = ''; // Clear input to encourage new selection
+            stationSelect.value = ""; // Reset station selection
 
             if (selectedPref) {
                 const filtered = currentState.allStations.filter(st => st.pref === selectedPref);
@@ -121,31 +119,26 @@ async function init() {
 }
 
 function updateStationList(stations, showPref = true) {
-    locationList.innerHTML = stations.map(st => {
+    // Clear existing options
+    stationSelect.innerHTML = '<option value="">地点を選択...</option>';
+
+    stations.forEach(st => {
+        const option = document.createElement('option');
+        option.value = st.code;
         const pref = (showPref && st.pref && st.pref !== "不明") ? `${st.pref} > ` : "";
-        return `<option value="${pref}${st.name} (${st.code})"></option>`;
-    }).join('');
+        option.textContent = `${pref}${st.name}`;
+        stationSelect.appendChild(option);
+    });
 }
 
 function handleLocationChange(e) {
-    const val = e.target.value;
-    // Extract code from parentheses, e.g., "Station (TK)" -> "TK"
-    const codeMatch = val.match(/\(([A-Z0-9]{2})\)$/);
+    const code = e.target.value;
+    if (!code) return; // Selected default option
 
-    if (codeMatch) {
-        const code = codeMatch[1];
-        const match = currentState.allStations.find(st => st.code === code);
-        if (match) {
-            currentState.location = match;
-            fetchAndRender();
-        }
-    } else {
-        // Fallback to name match if no code found (less reliable but useful)
-        const match = currentState.allStations.find(st => val.includes(st.name));
-        if (match) {
-            currentState.location = match;
-            fetchAndRender();
-        }
+    const match = currentState.allStations.find(st => st.code === code);
+    if (match) {
+        currentState.location = match;
+        fetchAndRender();
     }
 }
 
