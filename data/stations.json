@@ -1,1197 +1,241 @@
 [
-  {
-    "code": "XS",
-    "name": "むつ小川原",
-    "pref": "その他"
-  },
-  {
-    "code": "XO",
-    "name": "七尾",
-    "pref": "その他"
-  },
-  {
-    "code": "ZG",
-    "name": "三国",
-    "pref": "その他"
-  },
-  {
-    "code": "MJ",
-    "name": "三宅島（坪田）",
-    "pref": "その他"
-  },
-  {
-    "code": "QP",
-    "name": "三宅島（阿古）",
-    "pref": "その他"
-  },
-  {
-    "code": "J9",
-    "name": "三田尻",
-    "pref": "その他"
-  },
-  {
-    "code": "SB",
-    "name": "三蟠",
-    "pref": "その他"
-  },
-  {
-    "code": "MS",
-    "name": "三角",
-    "pref": "その他"
-  },
-  {
-    "code": "SH",
-    "name": "下北",
-    "pref": "その他"
-  },
-  {
-    "code": "J8",
-    "name": "与島",
-    "pref": "その他"
-  },
-  {
-    "code": "YJ",
-    "name": "与那国",
-    "pref": "その他"
-  },
-  {
-    "code": "RZ",
-    "name": "両津",
-    "pref": "その他"
-  },
-  {
-    "code": "QI",
-    "name": "中之島",
-    "pref": "その他"
-  },
-  {
-    "code": "NK",
-    "name": "中城湾港",
-    "pref": "その他"
-  },
-  {
-    "code": "KS",
-    "name": "串本",
-    "pref": "その他"
-  },
-  {
-    "code": "XT",
-    "name": "久慈",
-    "pref": "その他"
-  },
-  {
-    "code": "ZH",
-    "name": "久礼",
-    "pref": "その他"
-  },
-  {
-    "code": "YK",
-    "name": "京浜港",
-    "pref": "その他"
-  },
-  {
-    "code": "SD",
-    "name": "仙台新港",
-    "pref": "その他"
-  },
-  {
-    "code": "ZL",
-    "name": "仮屋",
-    "pref": "その他"
-  },
-  {
-    "code": "Z3",
-    "name": "伊東",
-    "pref": "その他"
-  },
-  {
-    "code": "XQ",
-    "name": "伏木富山",
-    "pref": "その他"
-  },
-  {
-    "code": "QD",
-    "name": "佐世保",
-    "pref": "その他"
-  },
-  {
-    "code": "X5",
-    "name": "佐伯",
-    "pref": "その他"
-  },
-  {
-    "code": "QQ",
-    "name": "八丈島（神湊）",
-    "pref": "その他"
-  },
-  {
-    "code": "O5",
-    "name": "八代",
-    "pref": "その他"
-  },
-  {
-    "code": "HG",
-    "name": "八戸港",
-    "pref": "その他"
-  },
-  {
-    "code": "UC",
-    "name": "内浦",
-    "pref": "その他"
-  },
-  {
-    "code": "BP",
-    "name": "別府",
-    "pref": "その他"
-  },
-  {
-    "code": "ZF",
-    "name": "勝浦",
-    "pref": "その他"
-  },
-  {
-    "code": "QL",
-    "name": "千葉",
-    "pref": "その他"
-  },
-  {
-    "code": "CB",
-    "name": "千葉港",
-    "pref": "その他"
-  },
-  {
-    "code": "QK",
-    "name": "南伊豆",
-    "pref": "その他"
-  },
-  {
-    "code": "DJ",
-    "name": "南大東",
-    "pref": "その他"
-  },
-  {
-    "code": "HR",
-    "name": "南風泊",
-    "pref": "その他"
-  },
-  {
-    "code": "MC",
-    "name": "南鳥島",
-    "pref": "その他"
-  },
-  {
-    "code": "QF",
-    "name": "博多",
-    "pref": "その他"
-  },
-  {
-    "code": "QE",
-    "name": "厳原",
-    "pref": "その他"
-  },
-  {
-    "code": "KT",
-    "name": "口之津",
-    "pref": "その他"
-  },
-  {
-    "code": "QJ",
-    "name": "名瀬",
-    "pref": "その他"
-  },
-  {
-    "code": "Q9",
-    "name": "呉",
-    "pref": "その他"
-  },
-  {
-    "code": "WY",
-    "name": "和歌山",
-    "pref": "その他"
-  },
-  {
-    "code": "KA",
-    "name": "唐津",
-    "pref": "その他"
-  },
-  {
-    "code": "TS",
-    "name": "土佐清水",
-    "pref": "その他"
-  },
-  {
-    "code": "SI",
-    "name": "堺",
-    "pref": "その他"
-  },
-  {
-    "code": "SG",
-    "name": "塩釜",
-    "pref": "その他"
-  },
-  {
-    "code": "SK",
-    "name": "境",
-    "pref": "その他"
-  },
-  {
-    "code": "TX",
-    "name": "多度津",
-    "pref": "その他"
-  },
-  {
-    "code": "QC",
-    "name": "大分",
-    "pref": "その他"
-  },
-  {
-    "code": "OH",
-    "name": "大山の鼻",
-    "pref": "その他"
-  },
-  {
-    "code": "QG",
-    "name": "大泊",
-    "pref": "その他"
-  },
-  {
-    "code": "OU",
-    "name": "大浦",
-    "pref": "その他"
-  },
-  {
-    "code": "O6",
-    "name": "大牟田",
-    "pref": "その他"
-  },
-  {
-    "code": "OF",
-    "name": "大船渡",
-    "pref": "その他"
-  },
-  {
-    "code": "O9",
-    "name": "奄美",
-    "pref": "その他"
-  },
-  {
-    "code": "UW",
-    "name": "宇和島",
-    "pref": "その他"
-  },
-  {
-    "code": "WH",
-    "name": "宇部",
-    "pref": "その他"
-  },
-  {
-    "code": "UN",
-    "name": "宇野",
-    "pref": "その他"
-  },
-  {
-    "code": "MU",
-    "name": "室戸岬",
-    "pref": "その他"
-  },
-  {
-    "code": "MY",
-    "name": "宮古",
-    "pref": "その他"
-  },
-  {
-    "code": "MG",
-    "name": "宮崎",
-    "pref": "その他"
-  },
-  {
-    "code": "TY",
-    "name": "富山",
-    "pref": "その他"
-  },
-  {
-    "code": "O1",
-    "name": "対馬",
-    "pref": "その他"
-  },
-  {
-    "code": "ON",
-    "name": "小名浜",
-    "pref": "その他"
-  },
-  {
-    "code": "ZN",
-    "name": "小木",
-    "pref": "その他"
-  },
-  {
-    "code": "KM",
-    "name": "小松島",
-    "pref": "その他"
-  },
-  {
-    "code": "AM",
-    "name": "尼崎",
-    "pref": "その他"
-  },
-  {
-    "code": "OK",
-    "name": "岡田",
-    "pref": "その他"
-  },
-  {
-    "code": "KW",
-    "name": "川崎",
-    "pref": "その他"
-  },
-  {
-    "code": "MR",
-    "name": "布良",
-    "pref": "その他"
-  },
-  {
-    "code": "X2",
-    "name": "平戸瀬戸",
-    "pref": "その他"
-  },
-  {
-    "code": "Q8",
-    "name": "広島",
-    "pref": "その他"
-  },
-  {
-    "code": "A1",
-    "name": "弟子待",
-    "pref": "その他"
-  },
-  {
-    "code": "OM",
-    "name": "御前崎",
-    "pref": "その他"
-  },
-  {
-    "code": "QA",
-    "name": "徳山",
-    "pref": "その他"
-  },
-  {
-    "code": "X6",
-    "name": "志布志",
-    "pref": "その他"
-  },
-  {
-    "code": "XM",
-    "name": "敦賀",
-    "pref": "その他"
-  },
-  {
-    "code": "NI",
-    "name": "新居浜",
-    "pref": "その他"
-  },
-  {
-    "code": "SN",
-    "name": "新湊",
-    "pref": "その他"
-  },
-  {
-    "code": "I5",
-    "name": "新潟東港",
-    "pref": "その他"
-  },
-  {
-    "code": "HW",
-    "name": "日和佐",
-    "pref": "その他"
-  },
-  {
-    "code": "AK",
-    "name": "明石",
-    "pref": "その他"
-  },
-  {
-    "code": "KZ",
-    "name": "木更津",
-    "pref": "その他"
-  },
-  {
-    "code": "HS",
-    "name": "本渡瀬戸",
-    "pref": "その他"
-  },
-  {
-    "code": "HM",
-    "name": "本牧",
-    "pref": "その他"
-  },
-  {
-    "code": "MT",
-    "name": "松山",
-    "pref": "その他"
-  },
-  {
-    "code": "MK",
-    "name": "枕崎",
-    "pref": "その他"
-  },
-  {
-    "code": "ZC",
-    "name": "柏崎",
-    "pref": "その他"
-  },
-  {
-    "code": "QS",
-    "name": "横浜",
-    "pref": "その他"
-  },
-  {
-    "code": "QN",
-    "name": "横須賀",
-    "pref": "その他"
-  },
-  {
-    "code": "O7",
-    "name": "水俣",
-    "pref": "その他"
-  },
-  {
-    "code": "MM",
-    "name": "水島",
-    "pref": "その他"
-  },
-  {
-    "code": "EI",
-    "name": "江井",
-    "pref": "その他"
-  },
-  {
-    "code": "F3",
-    "name": "沓形",
-    "pref": "その他"
-  },
-  {
-    "code": "ZO",
-    "name": "沖縄",
-    "pref": "その他"
-  },
-  {
-    "code": "Z1",
-    "name": "油壺",
-    "pref": "その他"
-  },
-  {
-    "code": "AB",
-    "name": "油津",
-    "pref": "その他"
-  },
-  {
-    "code": "IO",
-    "name": "泉大津",
-    "pref": "その他"
-  },
-  {
-    "code": "T6",
-    "name": "津居山",
-    "pref": "その他"
-  },
-  {
-    "code": "ST",
-    "name": "洲本",
-    "pref": "その他"
-  },
-  {
-    "code": "ZA",
-    "name": "浅虫",
-    "pref": "その他"
-  },
-  {
-    "code": "UR",
-    "name": "浦神",
-    "pref": "その他"
-  },
-  {
-    "code": "Z9",
-    "name": "海南",
-    "pref": "その他"
-  },
-  {
-    "code": "TN",
-    "name": "淡輪",
-    "pref": "その他"
-  },
-  {
-    "code": "FK",
-    "name": "深浦",
-    "pref": "その他"
-  },
-  {
-    "code": "SM",
-    "name": "清水港",
-    "pref": "その他"
-  },
-  {
-    "code": "D8",
-    "name": "湘南港",
-    "pref": "その他"
-  },
-  {
-    "code": "Z5",
-    "name": "焼津",
-    "pref": "その他"
-  },
-  {
-    "code": "KU",
-    "name": "熊本",
-    "pref": "その他"
-  },
-  {
-    "code": "KN",
-    "name": "熊野",
-    "pref": "その他"
-  },
-  {
-    "code": "CC",
-    "name": "父島",
-    "pref": "その他"
-  },
-  {
-    "code": "SU",
-    "name": "片島",
-    "pref": "その他"
-  },
-  {
-    "code": "I7",
-    "name": "生地",
-    "pref": "その他"
-  },
-  {
-    "code": "TI",
-    "name": "田ノ首",
-    "pref": "その他"
-  },
-  {
-    "code": "Z4",
-    "name": "田子",
-    "pref": "その他"
-  },
-  {
-    "code": "ZE",
-    "name": "田後",
-    "pref": "その他"
-  },
-  {
-    "code": "ZI",
-    "name": "男鹿",
-    "pref": "その他"
-  },
-  {
-    "code": "SR",
-    "name": "白浜",
-    "pref": "その他"
-  },
-  {
-    "code": "KO",
-    "name": "皇后",
-    "pref": "その他"
-  },
-  {
-    "code": "T3",
-    "name": "直江津",
-    "pref": "その他"
-  },
-  {
-    "code": "ZM",
-    "name": "相馬",
-    "pref": "その他"
-  },
-  {
-    "code": "IS",
-    "name": "石垣",
-    "pref": "その他"
-  },
-  {
-    "code": "E6",
-    "name": "石巻",
-    "pref": "その他"
-  },
-  {
-    "code": "IK",
-    "name": "石狩新港",
-    "pref": "その他"
-  },
-  {
-    "code": "KB",
-    "name": "神戸",
-    "pref": "その他"
-  },
-  {
-    "code": "QO",
-    "name": "神津島",
-    "pref": "その他"
-  },
-  {
-    "code": "FE",
-    "name": "福江",
-    "pref": "その他"
-  },
-  {
-    "code": "TJ",
-    "name": "種子島",
-    "pref": "その他"
-  },
-  {
-    "code": "TH",
-    "name": "竹原",
-    "pref": "その他"
-  },
-  {
-    "code": "QR",
-    "name": "粟島",
-    "pref": "その他"
-  },
-  {
-    "code": "IZ",
-    "name": "糸崎",
-    "pref": "その他"
-  },
-  {
-    "code": "Z6",
-    "name": "細島",
-    "pref": "その他"
-  },
-  {
-    "code": "SZ",
-    "name": "能登",
-    "pref": "その他"
-  },
-  {
-    "code": "MI",
-    "name": "舞阪",
-    "pref": "その他"
-  },
-  {
-    "code": "MZ",
-    "name": "舞鶴",
-    "pref": "その他"
-  },
-  {
-    "code": "O3",
-    "name": "苅田",
-    "pref": "その他"
-  },
-  {
-    "code": "QH",
-    "name": "西之表",
-    "pref": "その他"
-  },
-  {
-    "code": "IJ",
-    "name": "西表",
-    "pref": "その他"
-  },
-  {
-    "code": "SA",
-    "name": "西郷",
-    "pref": "その他"
-  },
-  {
-    "code": "I4",
-    "name": "赤羽根",
-    "pref": "その他"
-  },
-  {
-    "code": "Z7",
-    "name": "輪島",
-    "pref": "その他"
-  },
-  {
-    "code": "NH",
-    "name": "那覇",
-    "pref": "その他"
-  },
-  {
-    "code": "X3",
-    "name": "郷ノ浦",
-    "pref": "その他"
-  },
-  {
-    "code": "S9",
-    "name": "酒田",
-    "pref": "その他"
-  },
-  {
-    "code": "Q6",
-    "name": "釜石",
-    "pref": "その他"
-  },
-  {
-    "code": "CS",
-    "name": "銚子漁港",
-    "pref": "その他"
-  },
-  {
-    "code": "NS",
-    "name": "長崎",
-    "pref": "その他"
-  },
-  {
-    "code": "CF",
-    "name": "長府",
-    "pref": "その他"
-  },
-  {
-    "code": "MO",
-    "name": "門司",
-    "pref": "その他"
-  },
-  {
-    "code": "KK",
-    "name": "関空島",
-    "pref": "その他"
-  },
-  {
-    "code": "ZJ",
-    "name": "阿久根",
-    "pref": "その他"
-  },
-  {
-    "code": "AX",
-    "name": "青木",
-    "pref": "その他"
-  },
-  {
-    "code": "AO",
-    "name": "青森",
-    "pref": "その他"
-  },
-  {
-    "code": "AH",
-    "name": "青浜",
-    "pref": "その他"
-  },
-  {
-    "code": "ZK",
-    "name": "須佐",
-    "pref": "その他"
-  },
-  {
-    "code": "V7",
-    "name": "須崎",
-    "pref": "その他"
-  },
-  {
-    "code": "ZQ",
-    "name": "飛島",
-    "pref": "その他"
-  },
-  {
-    "code": "TT",
-    "name": "館山",
-    "pref": "その他"
-  },
-  {
-    "code": "TA",
-    "name": "高松",
-    "pref": "その他"
-  },
-  {
-    "code": "KC",
-    "name": "高知",
-    "pref": "その他"
-  },
-  {
-    "code": "ZD",
-    "name": "鬼崎",
-    "pref": "その他"
-  },
-  {
-    "code": "AY",
-    "name": "鮎川",
-    "pref": "その他"
-  },
-  {
-    "code": "TB",
-    "name": "鳥羽",
-    "pref": "その他"
-  },
-  {
-    "code": "KG",
-    "name": "鹿児島",
-    "pref": "その他"
-  },
-  {
-    "code": "ZB",
-    "name": "鼠ヶ関",
-    "pref": "その他"
-  },
-  {
-    "code": "N5",
-    "name": "対馬比田勝",
-    "pref": "三重"
-  },
-  {
-    "code": "N1",
-    "name": "日明",
-    "pref": "三重"
-  },
-  {
-    "code": "G5",
-    "name": "形原",
-    "pref": "佐賀"
-  },
-  {
-    "code": "K1",
-    "name": "姫路（飾磨）",
-    "pref": "兵庫"
-  },
-  {
-    "code": "RH",
-    "name": "苓北",
-    "pref": "兵庫"
-  },
-  {
-    "code": "K5",
-    "name": "萩",
-    "pref": "兵庫"
-  },
-  {
-    "code": "HK",
-    "name": "函館",
-    "pref": "北海道"
-  },
-  {
-    "code": "B1",
-    "name": "十勝",
-    "pref": "北海道"
-  },
-  {
-    "code": "Q0",
-    "name": "吉岡",
-    "pref": "北海道"
-  },
-  {
-    "code": "B4",
-    "name": "大間",
-    "pref": "北海道"
-  },
-  {
-    "code": "ZP",
-    "name": "奥尻",
-    "pref": "北海道"
-  },
-  {
-    "code": "OR",
-    "name": "奥尻港",
-    "pref": "北海道"
-  },
-  {
-    "code": "A8",
-    "name": "室蘭",
-    "pref": "北海道"
-  },
-  {
-    "code": "B6",
-    "name": "寿都",
-    "pref": "北海道"
-  },
-  {
-    "code": "B3",
-    "name": "小樽",
-    "pref": "北海道"
-  },
-  {
-    "code": "OW",
-    "name": "尾鷲",
-    "pref": "北海道"
-  },
-  {
-    "code": "B5",
-    "name": "岩内",
-    "pref": "北海道"
-  },
-  {
-    "code": "Z8",
-    "name": "忍路",
-    "pref": "北海道"
-  },
-  {
-    "code": "A5",
-    "name": "松前",
-    "pref": "北海道"
-  },
-  {
-    "code": "KE",
-    "name": "枝幸",
-    "pref": "北海道"
-  },
-  {
-    "code": "NM",
-    "name": "根室",
-    "pref": "北海道"
-  },
-  {
-    "code": "A3",
-    "name": "森",
-    "pref": "北海道"
-  },
-  {
-    "code": "ES",
-    "name": "江差",
-    "pref": "北海道"
-  },
-  {
-    "code": "A9",
-    "name": "浦河",
-    "pref": "北海道"
-  },
-  {
-    "code": "SE",
-    "name": "瀬棚",
-    "pref": "北海道"
-  },
-  {
-    "code": "B2",
-    "name": "留萌",
-    "pref": "北海道"
-  },
-  {
-    "code": "SO",
-    "name": "白老",
-    "pref": "北海道"
-  },
-  {
-    "code": "WN",
-    "name": "稚内",
-    "pref": "北海道"
-  },
-  {
-    "code": "A0",
-    "name": "紋別",
-    "pref": "北海道"
-  },
-  {
-    "code": "AS",
-    "name": "網走",
-    "pref": "北海道"
-  },
-  {
-    "code": "A6",
-    "name": "羅臼",
-    "pref": "北海道"
-  },
-  {
-    "code": "HN",
-    "name": "花咲",
-    "pref": "北海道"
-  },
-  {
-    "code": "C8",
-    "name": "苫小牧東",
-    "pref": "北海道"
-  },
-  {
-    "code": "TM",
-    "name": "苫小牧西",
-    "pref": "北海道"
-  },
-  {
-    "code": "KR",
-    "name": "釧路",
-    "pref": "北海道"
-  },
-  {
-    "code": "KP",
-    "name": "霧多布",
-    "pref": "北海道"
-  },
-  {
-    "code": "OS",
-    "name": "大阪",
-    "pref": "大阪"
-  },
-  {
-    "code": "J2",
-    "name": "岸和田",
-    "pref": "山口"
-  },
-  {
-    "code": "J6",
-    "name": "橘",
-    "pref": "山口"
-  },
-  {
-    "code": "J5",
-    "name": "西宮",
-    "pref": "山口"
-  },
-  {
-    "code": "M0",
-    "name": "今治市小島",
-    "pref": "岡山"
-  },
-  {
-    "code": "D6",
-    "name": "下田",
-    "pref": "岩手"
-  },
-  {
-    "code": "D4",
-    "name": "八丈島（八重根）",
-    "pref": "岩手"
-  },
-  {
-    "code": "D3",
-    "name": "大洗",
-    "pref": "岩手"
-  },
-  {
-    "code": "D1",
-    "name": "日立",
-    "pref": "岩手"
-  },
-  {
-    "code": "D2",
-    "name": "鹿島",
-    "pref": "岩手"
-  },
-  {
-    "code": "M1",
-    "name": "来島航路",
-    "pref": "広島"
-  },
-  {
-    "code": "M3",
-    "name": "波止浜",
-    "pref": "広島"
-  },
-  {
-    "code": "NG",
-    "name": "名古屋",
-    "pref": "愛知"
-  },
-  {
-    "code": "N0",
-    "name": "砂津",
-    "pref": "愛知"
-  },
-  {
-    "code": "R1",
-    "name": "平良",
-    "pref": "新潟"
-  },
-  {
-    "code": "T2",
-    "name": "宮津",
-    "pref": "東京"
-  },
-  {
-    "code": "TK",
-    "name": "東京",
-    "pref": "東京"
-  },
-  {
-    "code": "T1",
-    "name": "金沢",
-    "pref": "東京"
-  },
-  {
-    "code": "LG",
-    "name": "乙島",
-    "pref": "沖縄"
-  },
-  {
-    "code": "L6",
-    "name": "高知下田",
-    "pref": "熊本"
-  },
-  {
-    "code": "OD",
-    "name": "小田原",
-    "pref": "神奈川"
-  },
-  {
-    "code": "G4",
-    "name": "三河",
-    "pref": "福岡"
-  },
-  {
-    "code": "G3",
-    "name": "四日市港",
-    "pref": "福岡"
-  },
-  {
-    "code": "Q2",
-    "name": "大湊",
-    "pref": "秋田"
-  },
-  {
-    "code": "L0",
-    "name": "今治",
-    "pref": "長崎"
-  },
-  {
-    "code": "GB",
-    "name": "御坊",
-    "pref": "長崎"
-  },
-  {
-    "code": "G9",
-    "name": "石廊崎",
-    "pref": "長崎"
-  },
-  {
-    "code": "G8",
-    "name": "衣浦",
-    "pref": "長崎"
-  },
-  {
-    "code": "H1",
-    "name": "下津",
-    "pref": "青森"
-  },
-  {
-    "code": "HA",
-    "name": "浜田",
-    "pref": "青森"
-  },
-  {
-    "code": "Q1",
-    "name": "竜飛",
-    "pref": "青森"
-  },
-  {
-    "code": "AW",
-    "name": "阿波由岐",
-    "pref": "青森"
-  },
-  {
-    "code": "S0",
-    "name": "佐渡",
-    "pref": "静岡"
-  },
-  {
-    "code": "S6",
-    "name": "新潟西港",
-    "pref": "静岡"
-  },
-  {
-    "code": "S1",
-    "name": "秋田",
-    "pref": "静岡"
-  },
-  {
-    "code": "S2",
-    "name": "船川港",
-    "pref": "静岡"
-  },
-  {
-    "code": "L8",
-    "name": "伊予三島",
-    "pref": "鹿児島"
-  },
-  {
-    "code": "L7",
-    "name": "甲浦",
-    "pref": "鹿児島"
-  }
+  { "code": "XS", "name": "むつ小川原", "pref": "青森" },
+  { "code": "XO", "name": "七尾", "pref": "石川" },
+  { "code": "ZG", "name": "三国", "pref": "福井" },
+  { "code": "MJ", "name": "三宅島（坪田）", "pref": "東京" },
+  { "code": "QP", "name": "三宅島（阿古）", "pref": "東京" },
+  { "code": "J9", "name": "三田尻", "pref": "山口" },
+  { "code": "SB", "name": "三蟠", "pref": "岡山" },
+  { "code": "MS", "name": "三角", "pref": "熊本" },
+  { "code": "SH", "name": "下北", "pref": "青森" },
+  { "code": "J8", "name": "与島", "pref": "香川" },
+  { "code": "YJ", "name": "与那国", "pref": "沖縄" },
+  { "code": "RZ", "name": "両津", "pref": "新潟" },
+  { "code": "QI", "name": "中之島", "pref": "鹿児島" },
+  { "code": "NK", "name": "中城湾港", "pref": "沖縄" },
+  { "code": "KS", "name": "串本", "pref": "和歌山" },
+  { "code": "XT", "name": "久慈", "pref": "岩手" },
+  { "code": "ZH", "name": "久礼", "pref": "高知" },
+  { "code": "YK", "name": "京浜港", "pref": "神奈川" },
+  { "code": "SD", "name": "仙台新港", "pref": "宮城" },
+  { "code": "ZL", "name": "仮屋", "pref": "兵庫" },
+  { "code": "Z3", "name": "伊東", "pref": "静岡" },
+  { "code": "XQ", "name": "伏木富山", "pref": "富山" },
+  { "code": "QD", "name": "佐世保", "pref": "長崎" },
+  { "code": "X5", "name": "佐伯", "pref": "大分" },
+  { "code": "QQ", "name": "八丈島（神湊）", "pref": "東京" },
+  { "code": "O5", "name": "八代", "pref": "熊本" },
+  { "code": "HG", "name": "八戸港", "pref": "青森" },
+  { "code": "UC", "name": "内浦", "pref": "福井" },
+  { "code": "BP", "name": "別府", "pref": "大分" },
+  { "code": "ZF", "name": "勝浦", "pref": "千葉" },
+  { "code": "QL", "name": "千葉", "pref": "千葉" },
+  { "code": "CB", "name": "千葉港", "pref": "千葉" },
+  { "code": "QK", "name": "南伊豆", "pref": "静岡" },
+  { "code": "DJ", "name": "南大東", "pref": "沖縄" },
+  { "code": "HR", "name": "南風泊", "pref": "山口" },
+  { "code": "MC", "name": "南鳥島", "pref": "東京" },
+  { "code": "QF", "name": "博多", "pref": "福岡" },
+  { "code": "QE", "name": "厳原", "pref": "長崎" },
+  { "code": "KT", "name": "口之津", "pref": "長崎" },
+  { "code": "QJ", "name": "名瀬", "pref": "鹿児島" },
+  { "code": "Q9", "name": "呉", "pref": "広島" },
+  { "code": "WY", "name": "和歌山", "pref": "和歌山" },
+  { "code": "KA", "name": "唐津", "pref": "佐賀" },
+  { "code": "TS", "name": "土佐清水", "pref": "高知" },
+  { "code": "SI", "name": "堺", "pref": "大阪" },
+  { "code": "SG", "name": "塩釜", "pref": "宮城" },
+  { "code": "SK", "name": "境", "pref": "鳥取" },
+  { "code": "TX", "name": "多度津", "pref": "香川" },
+  { "code": "QC", "name": "大分", "pref": "大分" },
+  { "code": "OH", "name": "大山の鼻", "pref": "山口" },
+  { "code": "QG", "name": "大泊", "pref": "鹿児島" },
+  { "code": "OU", "name": "大浦", "pref": "佐賀" },
+  { "code": "O6", "name": "大牟田", "pref": "福岡" },
+  { "code": "OF", "name": "大船渡", "pref": "岩手" },
+  { "code": "O9", "name": "奄美", "pref": "鹿児島" },
+  { "code": "UW", "name": "宇和島", "pref": "愛媛" },
+  { "code": "WH", "name": "宇部", "pref": "山口" },
+  { "code": "UN", "name": "宇野", "pref": "岡山" },
+  { "code": "MU", "name": "室戸岬", "pref": "高知" },
+  { "code": "MY", "name": "宮古", "pref": "岩手" },
+  { "code": "MG", "name": "宮崎", "pref": "宮崎" },
+  { "code": "TY", "name": "富山", "pref": "富山" },
+  { "code": "O1", "name": "対馬", "pref": "長崎" },
+  { "code": "ON", "name": "小名浜", "pref": "福島" },
+  { "code": "ZN", "name": "小木", "pref": "新潟" },
+  { "code": "KM", "name": "小松島", "pref": "徳島" },
+  { "code": "AM", "name": "尼崎", "pref": "兵庫" },
+  { "code": "OK", "name": "岡田", "pref": "東京" },
+  { "code": "KW", "name": "川崎", "pref": "神奈川" },
+  { "code": "MR", "name": "布良", "pref": "千葉" },
+  { "code": "X2", "name": "平戸瀬戸", "pref": "長崎" },
+  { "code": "Q8", "name": "広島", "pref": "広島" },
+  { "code": "A1", "name": "弟子待", "pref": "山口" },
+  { "code": "OM", "name": "御前崎", "pref": "静岡" },
+  { "code": "QA", "name": "徳山", "pref": "山口" },
+  { "code": "X6", "name": "志布志", "pref": "鹿児島" },
+  { "code": "XM", "name": "敦賀", "pref": "福井" },
+  { "code": "NI", "name": "新居浜", "pref": "愛媛" },
+  { "code": "SN", "name": "新湊", "pref": "富山" },
+  { "code": "I5", "name": "新潟東港", "pref": "新潟" },
+  { "code": "HW", "name": "日和佐", "pref": "徳島" },
+  { "code": "AK", "name": "明石", "pref": "兵庫" },
+  { "code": "KZ", "name": "木更津", "pref": "千葉" },
+  { "code": "HS", "name": "本渡瀬戸", "pref": "熊本" },
+  { "code": "HM", "name": "本牧", "pref": "神奈川" },
+  { "code": "MT", "name": "松山", "pref": "愛媛" },
+  { "code": "MK", "name": "枕崎", "pref": "鹿児島" },
+  { "code": "ZC", "name": "柏崎", "pref": "新潟" },
+  { "code": "QS", "name": "横浜", "pref": "神奈川" },
+  { "code": "QN", "name": "横須賀", "pref": "神奈川" },
+  { "code": "O7", "name": "水俣", "pref": "熊本" },
+  { "code": "MM", "name": "水島", "pref": "岡山" },
+  { "code": "EI", "name": "江井", "pref": "兵庫" },
+  { "code": "F3", "name": "沓形", "pref": "北海道" },
+  { "code": "ZO", "name": "沖縄", "pref": "沖縄" },
+  { "code": "Z1", "name": "油壺", "pref": "神奈川" },
+  { "code": "AB", "name": "油津", "pref": "宮崎" },
+  { "code": "IO", "name": "泉大津", "pref": "大阪" },
+  { "code": "T6", "name": "津居山", "pref": "兵庫" },
+  { "code": "ST", "name": "洲本", "pref": "兵庫" },
+  { "code": "ZA", "name": "浅虫", "pref": "青森" },
+  { "code": "UR", "name": "浦神", "pref": "和歌山" },
+  { "code": "Z9", "name": "海南", "pref": "和歌山" },
+  { "code": "TN", "name": "淡輪", "pref": "大阪" },
+  { "code": "FK", "name": "深浦", "pref": "青森" },
+  { "code": "SM", "name": "清水港", "pref": "静岡" },
+  { "code": "D8", "name": "湘南港", "pref": "神奈川" },
+  { "code": "Z5", "name": "焼津", "pref": "静岡" },
+  { "code": "KU", "name": "熊本", "pref": "熊本" },
+  { "code": "KN", "name": "熊野", "pref": "三重" },
+  { "code": "CC", "name": "父島", "pref": "東京" },
+  { "code": "SU", "name": "片島", "pref": "高知" },
+  { "code": "I7", "name": "生地", "pref": "富山" },
+  { "code": "TI", "name": "田ノ首", "pref": "山口" },
+  { "code": "Z4", "name": "田子", "pref": "静岡" },
+  { "code": "ZE", "name": "田後", "pref": "鳥取" },
+  { "code": "ZI", "name": "男鹿", "pref": "秋田" },
+  { "code": "SR", "name": "白浜", "pref": "和歌山" },
+  { "code": "KO", "name": "皇后", "pref": "山口" },
+  { "code": "T3", "name": "直江津", "pref": "新潟" },
+  { "code": "ZM", "name": "相馬", "pref": "福島" },
+  { "code": "IS", "name": "石垣", "pref": "沖縄" },
+  { "code": "E6", "name": "石巻", "pref": "宮城" },
+  { "code": "IK", "name": "石狩新港", "pref": "北海道" },
+  { "code": "KB", "name": "神戸", "pref": "兵庫" },
+  { "code": "QO", "name": "神津島", "pref": "東京" },
+  { "code": "FE", "name": "福江", "pref": "長崎" },
+  { "code": "TJ", "name": "種子島", "pref": "鹿児島" },
+  { "code": "TH", "name": "竹原", "pref": "広島" },
+  { "code": "QR", "name": "粟島", "pref": "新潟" },
+  { "code": "IZ", "name": "糸崎", "pref": "広島" },
+  { "code": "Z6", "name": "細島", "pref": "宮崎" },
+  { "code": "SZ", "name": "能登", "pref": "石川" },
+  { "code": "MI", "name": "舞阪", "pref": "静岡" },
+  { "code": "MZ", "name": "舞鶴", "pref": "京都" },
+  { "code": "O3", "name": "苅田", "pref": "福岡" },
+  { "code": "QH", "name": "西之表", "pref": "鹿児島" },
+  { "code": "IJ", "name": "西表", "pref": "沖縄" },
+  { "code": "SA", "name": "西郷", "pref": "島根" },
+  { "code": "I4", "name": "赤羽根", "pref": "愛知" },
+  { "code": "Z7", "name": "輪島", "pref": "石川" },
+  { "code": "NH", "name": "那覇", "pref": "沖縄" },
+  { "code": "X3", "name": "郷ノ浦", "pref": "長崎" },
+  { "code": "S9", "name": "酒田", "pref": "山形" },
+  { "code": "Q6", "name": "釜石", "pref": "岩手" },
+  { "code": "CS", "name": "銚子漁港", "pref": "千葉" },
+  { "code": "NS", "name": "長崎", "pref": "長崎" },
+  { "code": "CF", "name": "長府", "pref": "山口" },
+  { "code": "MO", "name": "門司", "pref": "福岡" },
+  { "code": "KK", "name": "関空島", "pref": "大阪" },
+  { "code": "ZJ", "name": "阿久根", "pref": "鹿児島" },
+  { "code": "AX", "name": "青木", "pref": "佐賀" },
+  { "code": "AO", "name": "青森", "pref": "青森" },
+  { "code": "AH", "name": "青浜", "pref": "福岡" },
+  { "code": "ZK", "name": "須佐", "pref": "山口" },
+  { "code": "V7", "name": "須崎", "pref": "高知" },
+  { "code": "ZQ", "name": "飛島", "pref": "山形" },
+  { "code": "TT", "name": "館山", "pref": "千葉" },
+  { "code": "TA", "name": "高松", "pref": "香川" },
+  { "code": "KC", "name": "高知", "pref": "高知" },
+  { "code": "ZD", "name": "鬼崎", "pref": "愛知" },
+  { "code": "AY", "name": "鮎川", "pref": "宮城" },
+  { "code": "TB", "name": "鳥羽", "pref": "三重" },
+  { "code": "KG", "name": "鹿児島", "pref": "鹿児島" },
+  { "code": "ZB", "name": "鼠ヶ関", "pref": "山形" },
+  { "code": "N5", "name": "対馬比田勝", "pref": "長崎" },
+  { "code": "N1", "name": "日明", "pref": "福岡" },
+  { "code": "G5", "name": "形原", "pref": "愛知" },
+  { "code": "K1", "name": "姫路（飾磨）", "pref": "兵庫" },
+  { "code": "RH", "name": "苓北", "pref": "熊本" },
+  { "code": "K5", "name": "萩", "pref": "山口" },
+  { "code": "HK", "name": "函館", "pref": "北海道" },
+  { "code": "B1", "name": "十勝", "pref": "北海道" },
+  { "code": "Q0", "name": "吉岡", "pref": "北海道" },
+  { "code": "B4", "name": "大間", "pref": "青森" },
+  { "code": "ZP", "name": "奥尻", "pref": "北海道" },
+  { "code": "OR", "name": "奥尻港", "pref": "北海道" },
+  { "code": "A8", "name": "室蘭", "pref": "北海道" },
+  { "code": "B6", "name": "寿都", "pref": "北海道" },
+  { "code": "B3", "name": "小樽", "pref": "北海道" },
+  { "code": "OW", "name": "尾鷲", "pref": "三重" },
+  { "code": "B5", "name": "岩内", "pref": "北海道" },
+  { "code": "Z8", "name": "忍路", "pref": "北海道" },
+  { "code": "A5", "name": "松前", "pref": "北海道" },
+  { "code": "KE", "name": "枝幸", "pref": "北海道" },
+  { "code": "NM", "name": "根室", "pref": "北海道" },
+  { "code": "A3", "name": "森", "pref": "北海道" },
+  { "code": "ES", "name": "江差", "pref": "北海道" },
+  { "code": "A9", "name": "浦河", "pref": "北海道" },
+  { "code": "SE", "name": "瀬棚", "pref": "北海道" },
+  { "code": "B2", "name": "留萌", "pref": "北海道" },
+  { "code": "SO", "name": "白老", "pref": "北海道" },
+  { "code": "WN", "name": "稚内", "pref": "北海道" },
+  { "code": "A0", "name": "紋別", "pref": "北海道" },
+  { "code": "AS", "name": "網走", "pref": "北海道" },
+  { "code": "A6", "name": "羅臼", "pref": "北海道" },
+  { "code": "HN", "name": "花咲", "pref": "北海道" },
+  { "code": "C8", "name": "苫小牧東", "pref": "北海道" },
+  { "code": "TM", "name": "苫小牧西", "pref": "北海道" },
+  { "code": "KR", "name": "釧路", "pref": "北海道" },
+  { "code": "KP", "name": "霧多布", "pref": "北海道" },
+  { "code": "OS", "name": "大阪", "pref": "大阪" },
+  { "code": "J2", "name": "岸和田", "pref": "大阪" },
+  { "code": "J6", "name": "橘", "pref": "徳島" },
+  { "code": "J5", "name": "西宮", "pref": "兵庫" },
+  { "code": "M0", "name": "今治市小島", "pref": "愛媛" },
+  { "code": "D6", "name": "下田", "pref": "静岡" },
+  { "code": "D4", "name": "八丈島（八重根）", "pref": "東京" },
+  { "code": "D3", "name": "大洗", "pref": "茨城" },
+  { "code": "D1", "name": "日立", "pref": "茨城" },
+  { "code": "D2", "name": "鹿島", "pref": "茨城" },
+  { "code": "M1", "name": "来島航路", "pref": "愛媛" },
+  { "code": "M3", "name": "波止浜", "pref": "愛媛" },
+  { "code": "NG", "name": "名古屋", "pref": "愛知" },
+  { "code": "N0", "name": "砂津", "pref": "福岡" },
+  { "code": "R1", "name": "平良", "pref": "沖縄" },
+  { "code": "T2", "name": "宮津", "pref": "京都" },
+  { "code": "TK", "name": "東京", "pref": "東京" },
+  { "code": "T1", "name": "金沢", "pref": "石川" },
+  { "code": "LG", "name": "乙島", "pref": "岡山" },
+  { "code": "L6", "name": "高知下田", "pref": "高知" },
+  { "code": "OD", "name": "小田原", "pref": "神奈川" },
+  { "code": "G4", "name": "三河", "pref": "愛知" },
+  { "code": "G3", "name": "四日市港", "pref": "三重" },
+  { "code": "Q2", "name": "大湊", "pref": "青森" },
+  { "code": "L0", "name": "今治", "pref": "愛媛" },
+  { "code": "GB", "name": "御坊", "pref": "和歌山" },
+  { "code": "G9", "name": "石廊崎", "pref": "静岡" },
+  { "code": "G8", "name": "衣浦", "pref": "愛知" },
+  { "code": "H1", "name": "下津", "pref": "和歌山" },
+  { "code": "HA", "name": "浜田", "pref": "島根" },
+  { "code": "Q1", "name": "竜飛", "pref": "青森" },
+  { "code": "AW", "name": "阿波由岐", "pref": "徳島" },
+  { "code": "S0", "name": "佐渡", "pref": "新潟" },
+  { "code": "S6", "name": "新潟西港", "pref": "新潟" },
+  { "code": "S1", "name": "秋田", "pref": "秋田" },
+  { "code": "S2", "name": "船川港", "pref": "秋田" },
+  { "code": "L8", "name": "伊予三島", "pref": "愛媛" },
+  { "code": "L7", "name": "甲浦", "pref": "高知" }
 ]
