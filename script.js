@@ -31,14 +31,16 @@ async function init() {
 
         // Populate datalist with Prefecture > Station Name format
         console.log(`Loaded ${currentState.allStations.length} stations.`);
-        locationList.innerHTML = currentState.allStations.map(st =>
-            `<option value="${st.pref} > ${st.name} (${st.code})"></option>`
-        ).join('');
+        locationList.innerHTML = currentState.allStations.map(st => {
+            const pref = st.pref || "不明";
+            return `<option value="${pref} > ${st.name} (${st.code})"></option>`;
+        }).join('');
 
         // Ensure input shows current selection correctly with prefecture
         const initialMatch = currentState.allStations.find(st => st.code === currentState.location.code);
         if (initialMatch) {
-            locationInput.value = `${initialMatch.pref} > ${initialMatch.name} (${initialMatch.code})`;
+            const pref = initialMatch.pref || "不明";
+            locationInput.value = `${pref} > ${initialMatch.name} (${initialMatch.code})`;
         } else {
             locationInput.value = `${currentState.location.name} (${currentState.location.code})`;
         }
