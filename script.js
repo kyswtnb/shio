@@ -60,7 +60,8 @@ async function init() {
         });
 
         // Populate initial datalist (all stations)
-        updateStationList(currentState.allStations);
+        // Populate initial datalist (all stations)
+        updateStationList(currentState.allStations, true);
 
         // Ensure input shows current selection correctly with prefecture
         const initialMatch = currentState.allStations.find(st => st.code === currentState.location.code);
@@ -89,9 +90,9 @@ async function init() {
 
             if (selectedPref) {
                 const filtered = currentState.allStations.filter(st => st.pref === selectedPref);
-                updateStationList(filtered);
+                updateStationList(filtered, false); // Don't show pref prefix if filtered
             } else {
-                updateStationList(currentState.allStations);
+                updateStationList(currentState.allStations, true);
             }
         });
 
@@ -110,23 +111,32 @@ async function init() {
     }
 }
 
-function updateStationList(stations) {
+function updateStationList(stations, showPref = true) {
     locationList.innerHTML = stations.map(st => {
-        const pref = st.pref && st.pref !== "不明" ? `${st.pref} > ` : "";
+        const pref = (showPref && st.pref && st.pref !== "不明") ? `${st.pref} > ` : "";
         return `<option value="${pref}${st.name} (${st.code})"></option>`;
     }).join('');
 }
 
 function handleLocationChange(e) {
     const val = e.target.value;
-    const match = currentState.allStations.find(st => {
-        const pref = st.pref && st.pref !== "不明" ? `${st.pref} > ` : "";
-        const label = `${pref}${st.name} (${st.code})`;
-        return label === val;
-    });
-    if (match) {
-        currentState.location = match;
-        fetchAndRender();
+    // Extract code from parentheses, e.g., "Station (TK)" -> "TK"
+    const codeMatch = val.match(/\(([A-Z0-9]{2})\)$/);
+
+    if (codeMatch) {
+        const code = codeMatch[1];
+        const match = currentState.allStations.find(st => st.code === code);
+        if (match) {
+            currentState.location = match;
+            fetchAndRender();
+        }
+    } else {
+        // Fallback to name match if no code found (less reliable but useful)
+        const match = currentState.allStations.find(st => val.includes(st.name));
+        if (match) {
+            currentState.location = match;
+            fetchAndRender();
+        }
     }
 }
 
