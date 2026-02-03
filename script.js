@@ -32,15 +32,15 @@ async function init() {
         // Populate datalist with Prefecture > Station Name format
         console.log(`Loaded ${currentState.allStations.length} stations.`);
         locationList.innerHTML = currentState.allStations.map(st => {
-            const pref = st.pref || "不明";
-            return `<option value="${pref} > ${st.name} (${st.code})"></option>`;
+            const pref = st.pref && st.pref !== "不明" ? `${st.pref} > ` : "";
+            return `<option value="${pref}${st.name} (${st.code})"></option>`;
         }).join('');
 
         // Ensure input shows current selection correctly with prefecture
         const initialMatch = currentState.allStations.find(st => st.code === currentState.location.code);
         if (initialMatch) {
-            const pref = initialMatch.pref || "不明";
-            locationInput.value = `${pref} > ${initialMatch.name} (${initialMatch.code})`;
+            const pref = initialMatch.pref && initialMatch.pref !== "不明" ? `${initialMatch.pref} > ` : "";
+            locationInput.value = `${pref}${initialMatch.name} (${initialMatch.code})`;
         } else {
             locationInput.value = `${currentState.location.name} (${currentState.location.code})`;
         }
@@ -72,7 +72,11 @@ async function init() {
 
 function handleLocationChange(e) {
     const val = e.target.value;
-    const match = currentState.allStations.find(st => `${st.pref} > ${st.name} (${st.code})` === val);
+    const match = currentState.allStations.find(st => {
+        const pref = st.pref && st.pref !== "不明" ? `${st.pref} > ` : "";
+        const label = `${pref}${st.name} (${st.code})`;
+        return label === val;
+    });
     if (match) {
         currentState.location = match;
         fetchAndRender();
