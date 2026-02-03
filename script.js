@@ -2,7 +2,9 @@
 // State
 let currentState = {
     location: { name: "東京", code: "TK" },
-    date: "2026-01-01", // Default date
+    date: new Date().getFullYear() === 2026
+        ? new Date().toISOString().split('T')[0]
+        : "2026-01-01",
     chart: null,
     loadedData: null,
     lastLoadedCode: null,
@@ -22,15 +24,19 @@ const ctx = document.getElementById('tideChart').getContext('2d');
  */
 async function init() {
     try {
-        // Load station list
-        const response = await fetch('data/stations.json');
+        // Load station list with cache buster
+        const response = await fetch(`data/stations.json?t=${Date.now()}`);
         if (!response.ok) throw new Error('Stations list not found');
         currentState.allStations = await response.json();
 
         // Populate datalist
+        console.log(`Loaded ${currentState.allStations.length} stations.`);
         locationList.innerHTML = currentState.allStations.map(st =>
             `<option value="${st.name} (${st.code})"></option>`
         ).join('');
+
+        // Ensure input shows current selection correctly
+        locationInput.value = `${currentState.location.name} (${currentState.location.code})`;
 
         // Set default date (2026)
         datePicker.value = currentState.date;
@@ -39,6 +45,7 @@ async function init() {
         datePicker.max = "2026-12-31";
 
         // Event Listeners
+        locationInput.addEventListener('focus', (e) => e.target.select());
         locationInput.addEventListener('change', handleLocationChange);
 
         datePicker.addEventListener('change', (e) => {
@@ -93,13 +100,6 @@ async function fetchAndRender() {
  * Extract daily data and render
  */
 function renderCurrentData() {
-    // If we have some stations but the datalist is empty, repopulate it
-    if (currentState.allStations.length > 0 && locationList.children.length === 0) {
-        locationList.innerHTML = currentState.allStations.map(st =>
-            `<option value="${st.name} (${st.code})"></option>`
-        ).join('');
-    }
-
     if (!currentState.loadedData) return;
 
     const dateStr = currentState.date;
@@ -183,7 +183,8 @@ function processAndRender(data) {
                             borderColor: 'rgba(0,0,0,0.2)',
                             borderWidth: 1,
                             borderDash: [5, 5]
-                        }
+                        },
+                        currentTimeLine: getCurrentTimeAnnotation()
                     }
                 }
             },
@@ -203,6 +204,34 @@ function processAndRender(data) {
 
     // 3. Update Text Lists
     updateTideLists(peaks);
+}
+
+/**
+ * Helper to get current time line annotation
+ */
+function getCurrentTimeAnnotation() {
+    const today = new Date().toISOString().split('T')[0];
+    if (currentState.date !== today) return null;
+
+    const now = new Date();
+    // Chart labels are 0:00 to 23:00, so x value is hour + min/60
+    const xValue = now.getHours() + now.getMinutes() / 60;
+
+    return {
+        type: 'line',
+        xMin: xValue,
+        xMax: xValue,
+        borderColor: '#ff6b6b',
+        borderWidth: 2,
+        label: {
+            display: true,
+            content: '現在',
+            position: 'start',
+            backgroundColor: 'rgba(255, 107, 107, 0.8)',
+            color: '#fff',
+            font: { size: 10 }
+        }
+    };
 }
 
 /**
