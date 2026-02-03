@@ -19,6 +19,9 @@ const highTideList = document.getElementById('high-tide-list');
 const lowTideList = document.getElementById('low-tide-list');
 const ctx = document.getElementById('tideChart').getContext('2d');
 const prefSelect = document.getElementById('pref-select');
+const prevDayBtn = document.getElementById('prev-day');
+const nextDayBtn = document.getElementById('next-day');
+const tideTypeSpan = document.getElementById('tide-type');
 
 // Geographical Order (North to South)
 const PREFECTURE_ORDER = [
@@ -95,6 +98,10 @@ async function init() {
                 updateStationList(currentState.allStations, true);
             }
         });
+
+        // Date Navigation Listeners
+        prevDayBtn.addEventListener('click', () => changeDate(-1));
+        nextDayBtn.addEventListener('click', () => changeDate(1));
 
         datePicker.addEventListener('change', (e) => {
             currentState.date = e.target.value;
@@ -272,6 +279,60 @@ function processAndRender(data) {
 
     // 3. Update Text Lists
     updateTideLists(peaks);
+
+    // 4. Update Tide Type (Moon Age)
+    updateTideType(dateStr);
+}
+
+function changeDate(days) {
+    const currentDate = new Date(currentState.date);
+    currentDate.setDate(currentDate.getDate() + days);
+
+    const year = currentDate.getFullYear();
+    // Limit to 2026 for now as data is for 2026
+    if (year !== 2026) return; // Simple guard
+
+    currentState.date = currentDate.toISOString().split('T')[0];
+    datePicker.value = currentState.date;
+    renderCurrentData();
+}
+
+/**
+ * Calculate Tide Type based on Moon Age
+ * Approximation for 2026
+ */
+function updateTideType(dateStr) {
+    const date = new Date(dateStr);
+    // Simple Moon Age Calculation
+    // Known constant: 2026-01-18 was New Moon (Age ~ 0 / 29.5)
+    // Ref: 2026-01-18 20:55 is New Moon.
+
+    // Days since base date (using Jan 18 2026 as base for simplicity)
+    const baseDate = new Date("2026-01-18T21:00:00+09:00");
+    // Set time to noon to avoid timezone flip issues on diff
+    const targetDate = new Date(`${dateStr}T12:00:00+09:00`);
+
+    const diffTime = targetDate - baseDate;
+    const diffDays = diffTime / (1000 * 60 * 60 * 24);
+
+    let moonAge = diffDays % 29.53059;
+    if (moonAge < 0) moonAge += 29.53059;
+
+    let type = "";
+    // Standard Japanese Tide Type Mapping (approximate)
+    if (moonAge >= 0 && moonAge < 3.0) type = "大潮";
+    else if (moonAge >= 3.0 && moonAge < 6.0) type = "中潮";
+    else if (moonAge >= 6.0 && moonAge < 9.0) type = "小潮";
+    else if (moonAge >= 9.0 && moonAge < 10.0) type = "長潮";
+    else if (moonAge >= 10.0 && moonAge < 14.0) type = "若潮";
+    else if (moonAge >= 14.0 && moonAge < 17.0) type = "大潮";
+    else if (moonAge >= 17.0 && moonAge < 20.0) type = "中潮";
+    else if (moonAge >= 20.0 && moonAge < 23.0) type = "小潮";
+    else if (moonAge >= 23.0 && moonAge < 24.0) type = "長潮";
+    else if (moonAge >= 24.0) type = "若潮"; // 24 to 29.5
+    else type = "大潮"; // Loop back
+
+    tideTypeSpan.textContent = `${type} (月齢${moonAge.toFixed(1)})`;
 }
 
 /**
