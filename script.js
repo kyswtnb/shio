@@ -93,7 +93,15 @@ async function fetchAndRender() {
  * Extract daily data and render
  */
 function renderCurrentData() {
+    // If we have some stations but the datalist is empty, repopulate it
+    if (currentState.allStations.length > 0 && locationList.children.length === 0) {
+        locationList.innerHTML = currentState.allStations.map(st =>
+            `<option value="${st.name} (${st.code})"></option>`
+        ).join('');
+    }
+
     if (!currentState.loadedData) return;
+    ...
 
     const dateStr = currentState.date;
     const dayData = currentState.loadedData.find(d => d.date === dateStr);
