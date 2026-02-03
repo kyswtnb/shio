@@ -101,7 +101,6 @@ function renderCurrentData() {
     }
 
     if (!currentState.loadedData) return;
-    ...
 
     const dateStr = currentState.date;
     const dayData = currentState.loadedData.find(d => d.date === dateStr);
