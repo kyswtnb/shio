@@ -178,9 +178,15 @@ async function fetchAndRender() {
  * Extract daily data and render
  */
 function renderCurrentData() {
+    const dateStr = currentState.date;
+
+    // Always update Tide Type (Moon Age)
+    if (typeof updateTideType === 'function') {
+        updateTideType(dateStr);
+    }
+
     if (!currentState.loadedData) return;
 
-    const dateStr = currentState.date;
     const dayData = currentState.loadedData.find(d => d.date === dateStr);
 
     if (!dayData) {
@@ -283,10 +289,7 @@ function processAndRender(data) {
     // 3. Update Text Lists
     updateTideLists(peaks);
 
-    // 4. Update Tide Type (Moon Age)
-    if (typeof updateTideType === 'function') {
-        updateTideType(dateStr);
-    }
+    // 4. Update Tide Type (Moon Age) - Moved to renderCurrentData
 }
 
 function changeDate(days) {
