@@ -1,7 +1,7 @@
 
 // State
 let currentState = {
-    location: { name: "東京", code: "TK" },
+    location: null,
     date: new Date().getFullYear() === 2026
         ? new Date().toISOString().split('T')[0]
         : "2026-01-01",
@@ -67,14 +67,16 @@ async function init() {
         updateStationList(currentState.allStations, true);
 
         // Ensure input shows current selection correctly with prefecture
-        const initialMatch = currentState.allStations.find(st => st.code === currentState.location.code);
-        if (initialMatch) {
-            const pref = initialMatch.pref && initialMatch.pref !== "不明" ? `${initialMatch.pref} > ` : "";
-            locationInput.value = `${pref}${initialMatch.name} (${initialMatch.code})`;
-            // Also select the prefecture in dropdown if available
-            if (initialMatch.pref) prefSelect.value = initialMatch.pref;
-        } else {
-            locationInput.value = `${currentState.location.name} (${currentState.location.code})`;
+        if (currentState.location) {
+            const initialMatch = currentState.allStations.find(st => st.code === currentState.location.code);
+            if (initialMatch) {
+                const pref = initialMatch.pref && initialMatch.pref !== "不明" ? `${initialMatch.pref} > ` : "";
+                locationInput.value = `${pref}${initialMatch.name} (${initialMatch.code})`;
+                // Also select the prefecture in dropdown if available
+                if (initialMatch.pref) prefSelect.value = initialMatch.pref;
+            } else {
+                locationInput.value = `${currentState.location.name} (${currentState.location.code})`;
+            }
         }
 
         // Set default date (2026)
@@ -152,6 +154,14 @@ function handleLocationChange(e) {
  */
 async function fetchAndRender() {
     try {
+        if (!currentState.location) {
+            // If no location selected, just update Tide Type as it depends only on date
+            if (typeof updateTideType === 'function') {
+                updateTideType(currentState.date);
+            }
+            return;
+        }
+
         const code = currentState.location.code;
 
         // Only reload if station changed
