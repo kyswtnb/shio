@@ -27,30 +27,37 @@ def scrape_stations():
         return []
     
     stations_map = {}
+    current_pref = "不明"
     
-    # Method 1: Table-based extraction
+    # Method 1: Table-based extraction (better for capturing prefectures)
     rows = re.findall(r'<tr[^>]*>(.*?)</tr>', html, re.DOTALL)
     for row in rows:
         cells = re.findall(r'<td[^>]*>(.*?)</td>', row, re.DOTALL)
         if len(cells) >= 3:
+            # First cell might be the prefecture/region name
+            pref_raw = re.sub(r'<[^>]+>', '', cells[0]).strip()
+            if pref_raw:
+                current_pref = pref_raw
+            
             code = re.sub(r'<[^>]+>', '', cells[1]).strip()
             name = re.sub(r'<[^>]+>', '', cells[2]).strip()
+            
             if code and name and len(code) == 2 and code.isupper():
-                stations_map[code] = name
+                if code != '地点記号':
+                    stations_map[code] = {"code": code, "name": name, "pref": current_pref}
 
     # Method 2: Link-based fallback (if Method 1 finds < 10 stations)
     if len(stations_map) < 10:
         print("Table scraping found few stations. Using link-based fallback...")
-        # Look for links like: suisan.php?stn=WN&...
         links = re.findall(r'suisan\.php\?stn=([A-Z0-9]{2})[^>]*>(.*?)</a>', html)
         for code, name in links:
             name = name.strip()
-            if code and name and name != "潮汐表": # Exclude breadcrumb/footer links if any
-                stations_map[code] = name
+            if code and name and name != "潮汐表":
+                stations_map[code] = {"code": code, "name": name, "pref": "不明"}
 
-    stations = [{"code": k, "name": v} for k, v in stations_map.items()]
-    # Sort for consistent display
-    stations.sort(key=lambda x: x['name'])
+    stations = list(stations_map.values())
+    # Sort by prefecture then name
+    stations.sort(key=lambda x: (x['pref'], x['name']))
     
     print(f"Found {len(stations)} stations.")
     return stations

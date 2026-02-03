@@ -29,14 +29,19 @@ async function init() {
         if (!response.ok) throw new Error('Stations list not found');
         currentState.allStations = await response.json();
 
-        // Populate datalist
+        // Populate datalist with Prefecture > Station Name format
         console.log(`Loaded ${currentState.allStations.length} stations.`);
         locationList.innerHTML = currentState.allStations.map(st =>
-            `<option value="${st.name} (${st.code})"></option>`
+            `<option value="${st.pref} > ${st.name} (${st.code})"></option>`
         ).join('');
 
-        // Ensure input shows current selection correctly
-        locationInput.value = `${currentState.location.name} (${currentState.location.code})`;
+        // Ensure input shows current selection correctly with prefecture
+        const initialMatch = currentState.allStations.find(st => st.code === currentState.location.code);
+        if (initialMatch) {
+            locationInput.value = `${initialMatch.pref} > ${initialMatch.name} (${initialMatch.code})`;
+        } else {
+            locationInput.value = `${currentState.location.name} (${currentState.location.code})`;
+        }
 
         // Set default date (2026)
         datePicker.value = currentState.date;
@@ -65,7 +70,7 @@ async function init() {
 
 function handleLocationChange(e) {
     const val = e.target.value;
-    const match = currentState.allStations.find(st => `${st.name} (${st.code})` === val);
+    const match = currentState.allStations.find(st => `${st.pref} > ${st.name} (${st.code})` === val);
     if (match) {
         currentState.location = match;
         fetchAndRender();
