@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shio - 日本の潮汐表</title>
+    <meta name="description" content="日本の主要港の潮汐表（タイドグラフ）を表示するシンプルで美しいWebアプリです。">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo">
+                <span class="icon">🌊</span>
+                <h1>shio</h1>
+            </div>
+            <p class="subtitle">日本の潮汐表 (Tide Table)</p>
+        </header>
+
+        <main>
+            <section class="controls">
+                <div class="control-group">
+                    <label for="location-select">場所</label>
+                    <select id="location-select">
+                        <!-- Options will be populated by JS -->
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="date-picker">日付</label>
+                    <input type="date" id="date-picker">
+                </div>
+            </section>
+
+            <section class="tide-display">
+                <div class="chart-container">
+                    <canvas id="tideChart"></canvas>
+                </div>
+                
+                <div class="tide-info">
+                    <div class="info-card">
+                        <h3>満潮 (High Tide)</h3>
+                        <ul id="high-tide-list" class="tide-list">
+                            <!-- Populated by JS -->
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h3>干潮 (Low Tide)</h3>
+                        <ul id="low-tide-list" class="tide-list">
+                            <!-- Populated by JS -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="app-footer">
+            <p>Data provided by <a href="https://open-meteo.com/" target="_blank">Open-Meteo</a></p>
+            <p>&copy; 2026 shio</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
