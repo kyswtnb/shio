@@ -218,7 +218,7 @@ async function fetchWeatherData(lat, lon, date) {
     container.innerHTML = '<p style="text-align:center; color:#666;">天気情報を読み込み中...</p>';
 
     try {
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=weather_code,wind_speed_10m,wind_direction_10m&timezone=Asia%2FTokyo&start_date=${date}&end_date=${date}`;
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=weather_code,wind_speed_10m,wind_direction_10m,temperature_2m&timezone=Asia%2FTokyo&start_date=${date}&end_date=${date}`;
 
         const response = await fetch(url);
         if (!response.ok) throw new Error('Weather API error');
@@ -258,6 +258,7 @@ function renderWeatherChart(hourlyData) {
     const windSpeeds = hourlyData.wind_speed_10m;
     const weatherCodes = hourlyData.weather_code;
     const windDirs = hourlyData.wind_direction_10m;
+    const temperatures = hourlyData.temperature_2m;
 
     new Chart(ctxWeather, {
         type: 'bar',
@@ -270,7 +271,20 @@ function renderWeatherChart(hourlyData) {
                     backgroundColor: 'rgba(54, 162, 235, 0.5)',
                     borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 1,
-                    yAxisID: 'y'
+                    yAxisID: 'y',
+                    order: 2
+                },
+                {
+                    label: '気温 (°C)',
+                    data: temperatures,
+                    type: 'line',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderWidth: 2,
+                    pointRadius: 2,
+                    tension: 0.4,
+                    yAxisID: 'y1',
+                    order: 1
                 }
             ]
         },
@@ -282,6 +296,7 @@ function renderWeatherChart(hourlyData) {
                 tooltip: {
                     callbacks: {
                         afterLabel: function (context) {
+                            if (context.dataset.yAxisID === 'y1') return null; // Skip extra info for temp
                             const index = context.dataIndex;
                             const code = weatherCodes[index];
                             const dir = windDirs[index];
@@ -296,7 +311,14 @@ function renderWeatherChart(hourlyData) {
                 },
                 y: {
                     beginAtZero: true,
-                    title: { display: true, text: '風速 (m/s)' }
+                    title: { display: true, text: '風速 (m/s)' },
+                    position: 'left'
+                },
+                y1: {
+                    beginAtZero: false,
+                    title: { display: true, text: '気温 (°C)' },
+                    position: 'right',
+                    grid: { display: false }
                 }
             }
         },
