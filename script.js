@@ -291,78 +291,78 @@ function renderWeatherChart(hourlyData) {
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: {
-                legend: { position: 'top' },
-                tooltip: {
-                    callbacks: {
-                        afterLabel: function (context) {
-                            if (context.dataset.yAxisID === 'y1') return null; // Skip extra info for temp
-                            const index = context.dataIndex;
-                            const code = weatherCodes[index];
-                            const dir = windDirs[index];
-                            return ` 天気: ${getWeatherIcon(code)}  風向: ${dir}°`;
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: {
+                        callbacks: {
+                            afterLabel: function (context) {
+                                if (context.dataset.yAxisID === 'y1') return null; // Skip extra info for temp
+                                const index = context.dataIndex;
+                                const code = weatherCodes[index];
+                                const dir = windDirs[index];
+                                return ` 天気: ${getWeatherIcon(code)}  風向: ${dir}°`;
+                            }
                         }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: '風速 (m/s)' },
+                        position: 'left'
+                    },
+                    y1: {
+                        beginAtZero: false,
+                        title: { display: true, text: '気温 (°C)' },
+                        position: 'right',
+                        grid: { display: false }
                     }
                 }
             },
-            scales: {
-                x: {
-                    grid: { display: false }
-                },
-                y: {
-                    beginAtZero: true,
-                    title: { display: true, text: '風速 (m/s)' },
-                    position: 'left'
-                },
-                y1: {
-                    beginAtZero: false,
-                    title: { display: true, text: '気温 (°C)' },
-                    position: 'right',
-                    grid: { display: false }
-                }
-            }
-        },
-        plugins: [{
-            id: 'weatherIcons',
-            afterDraw: (chart) => {
-                const ctx = chart.ctx;
-                const xAxis = chart.scales.x;
-                const yAxis = chart.scales.y;
-
-                ctx.save();
-                ctx.textAlign = 'center';
-
-                weatherCodes.forEach((code, index) => {
-                    const x = xAxis.getPixelForTick(index);
-                    const y = yAxis.top - 25; // Weather icon position
-
-                    // 1. Draw Weather Icon
-                    ctx.font = '16px serif';
-                    ctx.fillStyle = '#000';
-                    ctx.fillText(getWeatherIcon(code), x, y);
-
-                    // 2. Draw Wind Direction Arrow
-                    const dir = windDirs[index];
-                    const arrowY = yAxis.top - 5; // Position arrow below weather icon
+            plugins: [{
+                id: 'weatherIcons',
+                afterDraw: (chart) => {
+                    const ctx = chart.ctx;
+                    const xAxis = chart.scales.x;
+                    const yAxis = chart.scales.y;
 
                     ctx.save();
-                    ctx.translate(x, arrowY);
-                    // Rotate: Wind from North (0deg) blows to South. 
-                    // Arrow pointing UP is 0deg. We want it pointing DOWN for North wind.
-                    // So rotate by dir + 180.
-                    ctx.rotate((dir + 180) * Math.PI / 180);
+                    ctx.textAlign = 'center';
 
-                    // Draw Arrow
-                    ctx.font = '14px sans-serif';
-                    ctx.fillStyle = '#666';
-                    ctx.fillText('↑', 0, 5); // 5 is offset to center text vertically
+                    weatherCodes.forEach((code, index) => {
+                        const x = xAxis.getPixelForTick(index);
+                        const y = yAxis.top - 25; // Weather icon position
+
+                        // 1. Draw Weather Icon
+                        ctx.font = '16px serif';
+                        ctx.fillStyle = '#000';
+                        ctx.fillText(getWeatherIcon(code), x, y);
+
+                        // 2. Draw Wind Direction Arrow
+                        const dir = windDirs[index];
+                        const arrowY = yAxis.top - 5; // Position arrow below weather icon
+
+                        ctx.save();
+                        ctx.translate(x, arrowY);
+                        // Rotate: Wind from North (0deg) blows to South. 
+                        // Arrow pointing UP is 0deg. We want it pointing DOWN for North wind.
+                        // So rotate by dir + 180.
+                        ctx.rotate((dir + 180) * Math.PI / 180);
+
+                        // Draw Arrow
+                        ctx.font = 'bold 16px sans-serif';
+                        ctx.fillStyle = '#444';
+                        ctx.fillText('↑', 0, 5); // 5 is offset to center text vertically
+                        ctx.restore();
+                    });
+
                     ctx.restore();
-                });
-
-                ctx.restore();
-            }
-        }]
-    });
+                }
+            }]
+        });
 }
 
 function showError(msg) {
