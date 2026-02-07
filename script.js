@@ -309,14 +309,32 @@ function renderWeatherChart(hourlyData) {
 
                 ctx.save();
                 ctx.textAlign = 'center';
-                ctx.font = '16px serif'; // Use unicode icons
 
                 weatherCodes.forEach((code, index) => {
                     const x = xAxis.getPixelForTick(index);
-                    const y = yAxis.top - 10; // Position above chart area if possible, or inside top
-                    // Actually, let's put it at the bottom or top of bars? 
-                    // Let's put it on top of the chart area 
-                    ctx.fillText(getWeatherIcon(code), x, 20);
+                    const y = yAxis.top - 25; // Weather icon position
+
+                    // 1. Draw Weather Icon
+                    ctx.font = '16px serif';
+                    ctx.fillStyle = '#000';
+                    ctx.fillText(getWeatherIcon(code), x, y);
+
+                    // 2. Draw Wind Direction Arrow
+                    const dir = windDirs[index];
+                    const arrowY = yAxis.top - 5; // Position arrow below weather icon
+
+                    ctx.save();
+                    ctx.translate(x, arrowY);
+                    // Rotate: Wind from North (0deg) blows to South. 
+                    // Arrow pointing UP is 0deg. We want it pointing DOWN for North wind.
+                    // So rotate by dir + 180.
+                    ctx.rotate((dir + 180) * Math.PI / 180);
+
+                    // Draw Arrow
+                    ctx.font = '14px sans-serif';
+                    ctx.fillStyle = '#666';
+                    ctx.fillText('↑', 0, 5); // 5 is offset to center text vertically
+                    ctx.restore();
                 });
 
                 ctx.restore();
