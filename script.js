@@ -204,6 +204,125 @@ function renderCurrentData() {
             tide_height: hourlyHeights
         }
     });
+
+    // Fetch and render weather if location has lat/lon
+    if (currentState.location.lat && currentState.location.lon) {
+        fetchWeatherData(currentState.location.lat, currentState.location.lon, dateStr);
+    } else {
+        document.getElementById('weather-container').innerHTML = '';
+    }
+}
+
+async function fetchWeatherData(lat, lon, date) {
+    const container = document.getElementById('weather-container');
+    container.innerHTML = '<p style="text-align:center; color:#666;">天気情報を読み込み中...</p>';
+
+    try {
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=weather_code,wind_speed_10m,wind_direction_10m&timezone=Asia%2FTokyo&start_date=${date}&end_date=${date}`;
+
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('Weather API error');
+
+        const data = await response.json();
+
+        if (!data.hourly) throw new Error('No weather data');
+
+        renderWeatherChart(data.hourly);
+
+    } catch (e) {
+        console.error(e);
+        container.innerHTML = '<p style="text-align:center; color:#999;">天気情報の取得に失敗しました</p>';
+    }
+}
+
+function renderWeatherChart(hourlyData) {
+    const container = document.getElementById('weather-container');
+    container.innerHTML = '<canvas id="weatherChart" height="150"></canvas>';
+
+    const ctxWeather = document.getElementById('weatherChart').getContext('2d');
+
+    // Mapping WMO Weather Codes to Japanese/Icons (Simple)
+    // 0: Clear, 1-3: Cloudy, 45-48: Fog, 51-67: Rain, 71-77: Snow, 80-82: Showers, 95-99: Thunderstorm
+    const getWeatherIcon = (code) => {
+        if (code === 0) return '☀️'; // Clear
+        if (code <= 3) return '☁️'; // Cloudy
+        if (code <= 48) return '🌫️'; // Fog
+        if (code <= 67) return '🌧️'; // Rain
+        if (code <= 77) return '❄️'; // Snow
+        if (code <= 82) return '🌧️'; // Showers
+        if (code <= 99) return '⚡'; // Thunderstorm
+        return '❓';
+    };
+
+    const labels = hourlyData.time.map(t => t.split('T')[1].substring(0, 5));
+    const windSpeeds = hourlyData.wind_speed_10m;
+    const weatherCodes = hourlyData.weather_code;
+    const windDirs = hourlyData.wind_direction_10m;
+
+    new Chart(ctxWeather, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: '風速 (m/s)',
+                    data: windSpeeds,
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1,
+                    yAxisID: 'y'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: {
+                    callbacks: {
+                        afterLabel: function (context) {
+                            const index = context.dataIndex;
+                            const code = weatherCodes[index];
+                            const dir = windDirs[index];
+                            return ` 天気: ${getWeatherIcon(code)}  風向: ${dir}°`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: { display: false }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: { display: true, text: '風速 (m/s)' }
+                }
+            }
+        },
+        plugins: [{
+            id: 'weatherIcons',
+            afterDraw: (chart) => {
+                const ctx = chart.ctx;
+                const xAxis = chart.scales.x;
+                const yAxis = chart.scales.y;
+
+                ctx.save();
+                ctx.textAlign = 'center';
+                ctx.font = '16px serif'; // Use unicode icons
+
+                weatherCodes.forEach((code, index) => {
+                    const x = xAxis.getPixelForTick(index);
+                    const y = yAxis.top - 10; // Position above chart area if possible, or inside top
+                    // Actually, let's put it at the bottom or top of bars? 
+                    // Let's put it on top of the chart area 
+                    ctx.fillText(getWeatherIcon(code), x, 20);
+                });
+
+                ctx.restore();
+            }
+        }]
+    });
 }
 
 function showError(msg) {
@@ -342,6 +461,18 @@ function updateTideType(dateStr) {
 
     if (!tideTypeSpan) return;
     tideTypeSpan.textContent = `${type} (月齢${moonAge.toFixed(1)})`;
+
+    // Update Day of Week
+    const daysOfWeek = ["(日)", "(月)", "(火)", "(水)", "(木)", "(金)", "(土)"];
+    const weekday = daysOfWeek[date.getDay()];
+    const dateWeekdaySpan = document.getElementById('date-weekday');
+    if (dateWeekdaySpan) {
+        dateWeekdaySpan.textContent = weekday;
+        // Optional: Color for Sat/Sun
+        if (date.getDay() === 0) dateWeekdaySpan.style.color = 'red';
+        else if (date.getDay() === 6) dateWeekdaySpan.style.color = 'blue';
+        else dateWeekdaySpan.style.color = 'inherit';
+    }
 }
 
 /**

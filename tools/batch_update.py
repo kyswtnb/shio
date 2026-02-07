@@ -271,6 +271,12 @@ def get_pref_for_code(code):
     # Handle sub-codes or patterns if necessary
     return "その他"
 
+def dms_to_decimal(d, m):
+    try:
+        return round(float(d) + float(m) / 60.0, 6)
+    except ValueError:
+        return None
+
 def scrape_stations():
     print(f"Scraping stations from {STATION_LIST_URL}...")
     html = get_html(STATION_LIST_URL)
@@ -279,17 +285,26 @@ def scrape_stations():
     
     stations_map = {}
     
-    # Track current prefecture from table if possible, but use map as backup
-    current_pref_from_table = "不明"
+    # Regex to capture Code, Name, Lat (Deg, Min), Lon (Deg, Min)
+    # Matches: <td>A0</td><td><a ...>紋別</a></td>\n<td>44゜21'</td>\n<td>143゜22'</td>
+    pattern = r'<td>([A-Z0-9]{2})</td>\s*<td><a[^>]*>(.*?)</a></td>\s*<td>(\d+)゜(\d+)\'</td>\s*<td>(\d+)゜(\d+)\'</td>'
     
-    # Search for links like: suisan.php?stn=WN&...
-    # This is more reliable than table rows which have complex rowspans.
-    links = re.findall(r'suisan\.php\?stn=([A-Z0-9]{2})[^>]*>(.*?)</a>', html)
-    for code, name in links:
+    matches = re.findall(pattern, html)
+    print(f"Regex found {len(matches)} matches.")
+
+    for code, name, lat_d, lat_m, lon_d, lon_m in matches:
         name = name.strip()
         if code and name and name != "潮汐表":
             pref = get_pref_for_code(code)
-            stations_map[code] = {"code": code, "name": name, "pref": pref}
+            lat = dms_to_decimal(lat_d, lat_m)
+            lon = dms_to_decimal(lon_d, lon_m)
+            stations_map[code] = {
+                "code": code, 
+                "name": name, 
+                "pref": pref,
+                "lat": lat,
+                "lon": lon
+            }
 
     stations = list(stations_map.values())
     # Sort by prefecture then name

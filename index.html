@@ -49,6 +49,7 @@
                     <div style="display: flex; align-items: center; gap: 5px;">
                         <button id="prev-day" style="padding: 5px 10px;">&lt;</button>
                         <input type="date" id="date-picker">
+                        <span id="date-weekday" style="font-weight: bold; margin-right: 5px;"></span>
                         <button id="next-day" style="padding: 5px 10px;">&gt;</button>
                         <span id="tide-type" style="margin-left: 10px; font-weight: bold; color: #0077be;"></span>
                     </div>
@@ -58,6 +59,10 @@
             <section class="tide-display">
                 <div class="chart-container">
                     <canvas id="tideChart"></canvas>
+                </div>
+
+                <div id="weather-container" style="margin-top: 20px; overflow-x: auto;">
+                    <!-- Weather/Wind Data will be injected here -->
                 </div>
 
                 <div class="tide-info">
