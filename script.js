@@ -157,12 +157,20 @@ async function fetchAndRender() {
 
         const code = currentState.location.code;
 
-        // Only reload if station changed
-        if (currentState.lastLoadedCode !== code) {
-            const url = `data/raw/${code}.json`;
-            const response = await fetch(url);
-            if (!response.ok) throw new Error('Data file not found');
-            currentState.loadedData = await response.json();
+        // Only reload if station changed or if it's API (need to fetch for date)
+        if (currentState.lastLoadedCode !== code || currentState.location.type === 'api') {
+            if (currentState.location.type === 'api') {
+                currentState.loadedData = [await fetchOpenMeteoTide(currentState.location, currentState.date)];
+            } else {
+                // JMA File
+                // Only load if code changed (JMA file contains full year)
+                if (currentState.lastLoadedCode !== code) {
+                    const url = `data/raw/${code}.json`;
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error('Data file not found');
+                    currentState.loadedData = await response.json();
+                }
+            }
             currentState.lastLoadedCode = code;
         }
 
@@ -172,6 +180,27 @@ async function fetchAndRender() {
         console.error('Error loading data:', error);
         showError('データの読み込みに失敗しました。');
     }
+}
+
+async function fetchOpenMeteoTide(station, date) {
+    // Open-Meteo Marine API
+    // hourly=sea_level_height_msl (Sea Level Height relative to MSL) in meters.
+    // We convert to cm to match JMA data format.
+    const url = `https://marine-api.open-meteo.com/v1/marine?latitude=${station.lat}&longitude=${station.lon}&hourly=sea_level_height_msl&timezone=Asia%2FTokyo&start_date=${date}&end_date=${date}`;
+
+    const response = await fetch(url);
+    if (!response.ok) throw new Error('Tide API error');
+    const data = await response.json();
+
+    if (!data.hourly || !data.hourly.sea_level_height_msl) throw new Error('No tide data');
+
+    // Convert meters to cm
+    const hourlyCm = data.hourly.sea_level_height_msl.map(v => v !== null ? v * 100 : null);
+
+    return {
+        date: date,
+        hourly: hourlyCm
+    };
 }
 
 /**
@@ -280,13 +309,11 @@ function renderWeatherTable(hourlyData) {
         windSpdRow += `<td>${windSpd}<span class="unit">m/s</span></td>`;
     }
 
-    timeRow += '</tr>';
-    weatherRow += '</tr>';
-    tempRow += '</tr>';
-    windDirRow += '</tr>';
-    windSpdRow += '</tr>';
-
-    tableHtml += timeRow + weatherRow + tempRow + windDirRow + windSpdRow;
+    tableHtml += timeRow + '</tr>';
+    tableHtml += weatherRow + '</tr>';
+    tableHtml += tempRow + '</tr>';
+    tableHtml += windDirRow + '</tr>';
+    tableHtml += windSpdRow + '</tr>';
     tableHtml += '</table>';
 
     container.innerHTML = tableHtml;
@@ -387,7 +414,13 @@ function changeDate(days) {
 
     currentState.date = currentDate.toISOString().split('T')[0];
     datePicker.value = currentState.date;
-    renderCurrentData();
+
+    // Trigger fetch if API, otherwise just render (JMA data is preloaded)
+    if (currentState.location && currentState.location.type === 'api') {
+        fetchAndRender();
+    } else {
+        renderCurrentData();
+    }
 }
 
 /**
