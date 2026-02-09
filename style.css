@@ -174,6 +174,42 @@ select:focus, input[type="date"]:focus {
     text-decoration: underline;
 }
 
+/* Weather Table */
+.weather-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-bottom: 10px;
+    background: white;
+}
+
+.weather-table th, .weather-table td {
+    border: 1px solid #e0e0e0;
+    padding: 6px 4px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.weather-table th {
+    background-color: #f5f7f9;
+    font-weight: bold;
+    color: #444;
+}
+
+.weather-table .unit {
+    font-size: 0.85em;
+    color: #888;
+    margin-left: 2px;
+}
+
+#weather-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
 @media (max-width: 600px) {
     .app-container {
         margin: 0;
@@ -181,6 +217,15 @@ select:focus, input[type="date"]:focus {
         padding: 20px;
     }
     
+    .control-group {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .control-group > div {
+        width: 100%;
+    }
+
     .tide-info {
         grid-template-columns: 1fr;
     }

@@ -227,7 +227,7 @@ async function fetchWeatherData(lat, lon, date) {
 
         if (!data.hourly) throw new Error('No weather data');
 
-        renderWeatherChart(data.hourly);
+        renderWeatherTable(data.hourly);
 
     } catch (e) {
         console.error(e);
@@ -235,14 +235,10 @@ async function fetchWeatherData(lat, lon, date) {
     }
 }
 
-function renderWeatherChart(hourlyData) {
+function renderWeatherTable(hourlyData) {
     const container = document.getElementById('weather-container');
-    container.innerHTML = '<canvas id="weatherChart" height="150"></canvas>';
 
-    const ctxWeather = document.getElementById('weatherChart').getContext('2d');
-
-    // Mapping WMO Weather Codes to Japanese/Icons (Simple)
-    // 0: Clear, 1-3: Cloudy, 45-48: Fog, 51-67: Rain, 71-77: Snow, 80-82: Showers, 95-99: Thunderstorm
+    // Mapping WMO Weather Codes
     const getWeatherIcon = (code) => {
         if (code === 0) return '☀️'; // Clear
         if (code <= 3) return '☁️'; // Cloudy
@@ -254,117 +250,47 @@ function renderWeatherChart(hourlyData) {
         return '❓';
     };
 
-    const labels = hourlyData.time.map(t => t.split('T')[1].substring(0, 5));
-    const windSpeeds = hourlyData.wind_speed_10m;
-    const weatherCodes = hourlyData.weather_code;
-    const windDirs = hourlyData.wind_direction_10m;
-    const temperatures = hourlyData.temperature_2m;
+    let tableHtml = '<table class="weather-table">';
 
-    new Chart(ctxWeather, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [
-                {
-                    label: '風速 (m/s)',
-                    data: windSpeeds,
-                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1,
-                    yAxisID: 'y',
-                    order: 2
-                },
-                {
-                    label: '気温 (°C)',
-                    data: temperatures,
-                    type: 'line',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderWidth: 2,
-                    pointRadius: 2,
-                    tension: 0.4,
-                    yAxisID: 'y1',
-                    order: 1
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-                plugins: {
-                    legend: { position: 'bottom' },
-                    tooltip: {
-                        callbacks: {
-                            afterLabel: function (context) {
-                                if (context.dataset.yAxisID === 'y1') return null; // Skip extra info for temp
-                                const index = context.dataIndex;
-                                const code = weatherCodes[index];
-                                const dir = windDirs[index];
-                                return ` 天気: ${getWeatherIcon(code)}  風向: ${dir}°`;
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        grid: { display: false }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        title: { display: true, text: '風速 (m/s)' },
-                        position: 'left'
-                    },
-                    y1: {
-                        beginAtZero: false,
-                        title: { display: true, text: '気温 (°C)' },
-                        position: 'right',
-                        grid: { display: false }
-                    }
-                }
-            },
-            plugins: [{
-                id: 'weatherIcons',
-                afterDraw: (chart) => {
-                    const ctx = chart.ctx;
-                    const xAxis = chart.scales.x;
-                    const yAxis = chart.scales.y;
+    // Rows
+    let timeRow = '<tr><th>時間</th>';
+    let weatherRow = '<tr><th>天気</th>';
+    let tempRow = '<tr><th>気温</th>';
+    let windDirRow = '<tr><th>風向</th>';
+    let windSpdRow = '<tr><th>風速</th>';
 
-                    ctx.save();
-                    ctx.textAlign = 'center';
+    // Loop 24 hours, step 2
+    for (let i = 0; i < 24; i += 2) {
+        const time = i;
+        const code = hourlyData.weather_code[i];
+        const temp = hourlyData.temperature_2m[i];
+        const windDir = hourlyData.wind_direction_10m[i];
+        const windSpd = hourlyData.wind_speed_10m[i];
 
-                    weatherCodes.forEach((code, index) => {
-                        const x = xAxis.getPixelForTick(index);
-                        const y = yAxis.top - 25; // Weather icon position
+        timeRow += `<td>${time}</td>`;
+        weatherRow += `<td>${getWeatherIcon(code)}</td>`;
+        tempRow += `<td>${temp}<span class="unit">°C</span></td>`;
 
-                        // 1. Draw Weather Icon
-                        ctx.font = '16px serif';
-                        ctx.fillStyle = '#000';
-                        ctx.fillText(getWeatherIcon(code), x, y);
+        // Rotate arrow
+        // 0deg = North (Blows to South). Arrow pointing UP (0) needs to be rotated 180 to point down.
+        // So rotate = dir + 180.
+        const rotation = windDir + 180;
+        windDirRow += `<td><div style="transform: rotate(${rotation}deg); display:inline-block; font-weight:bold;">↑</div></td>`;
 
-                        // 2. Draw Wind Direction Arrow
-                        const dir = windDirs[index];
-                        const arrowY = yAxis.top - 5; // Position arrow below weather icon
+        windSpdRow += `<td>${windSpd}<span class="unit">m/s</span></td>`;
+    }
 
-                        ctx.save();
-                        ctx.translate(x, arrowY);
-                        // Rotate: Wind from North (0deg) blows to South. 
-                        // Arrow pointing UP is 0deg. We want it pointing DOWN for North wind.
-                        // So rotate by dir + 180.
-                        ctx.rotate((dir + 180) * Math.PI / 180);
+    timeRow += '</tr>';
+    weatherRow += '</tr>';
+    tempRow += '</tr>';
+    windDirRow += '</tr>';
+    windSpdRow += '</tr>';
 
-                        // Draw Arrow
-                        ctx.font = 'bold 16px sans-serif';
-                        ctx.fillStyle = '#444';
-                        ctx.fillText('↑', 0, 5); // 5 is offset to center text vertically
-                        ctx.restore();
-                    });
+    tableHtml += timeRow + weatherRow + tempRow + windDirRow + windSpdRow;
+    tableHtml += '</table>';
 
-                    ctx.restore();
-                }
-            }]
-        });
+    container.innerHTML = tableHtml;
 }
-
 function showError(msg) {
     highTideList.innerHTML = '<li class="error">データなし</li>';
     lowTideList.innerHTML = '<li class="error">データなし</li>';
